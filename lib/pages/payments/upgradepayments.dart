@@ -11,6 +11,9 @@ import 'package:niia_mis_app/pages/home.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:niia_mis_app/pages/profile/editprofile.dart';
+import 'package:niia_mis_app/pages/payments/remitacustomgateway.dart';
+import 'package:uuid/uuid.dart';
+import 'package:niia_mis_app/widgets/remitadata.dart';
 
 class UpgradePayment extends StatefulWidget {
   @override
@@ -31,6 +34,8 @@ class _UpgradePaymentState extends State<UpgradePayment> {
   var _fullname;
   var _email;
   var _phoneno;
+  var _firstname;
+  var _lastname;
 
   TextEditingController _remainingFullAmountController;
   TextEditingController _remainingCorporateAmountController;
@@ -92,8 +97,8 @@ class _UpgradePaymentState extends State<UpgradePayment> {
   Future<Null> getUserFullname() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    var _firstname = prefs.getString('userFirstName');
-    var _lastname = prefs.getString('userLastName');
+    _firstname = prefs.getString('userFirstName');
+    _lastname = prefs.getString('userLastName');
     _email = prefs.getString('userEmail');
     _phoneno = prefs.getString('userPhoneNo');
     _fullname = _firstname + " " + _lastname;
@@ -160,12 +165,15 @@ class _UpgradePaymentState extends State<UpgradePayment> {
             if (_membershipsubscription == "Full") {
               _amountController = new TextEditingController(
                   text: 'N ' + _remainingFullAmount.toString());
+              _total = _remainingFullAmount;
             } else if (_membershipsubscription == "Corporate") {
               _amountController = new TextEditingController(
                   text: 'N ' + _remainingCorporateAmount.toString());
+              _total = _remainingCorporateAmount;
             } else {
               _amountController = new TextEditingController(
                   text: 'N ' + _remainingLifeAmount.toString());
+              _total = _remainingLifeAmount;
             }
           });
         },
@@ -194,9 +202,6 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           filled: true,
           fillColor: Colors.grey[300],
         ),
-        onSaved: (String value) {
-          _total = value;
-        },
       ),
     );
   }
@@ -222,9 +227,6 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           filled: true,
           fillColor: Colors.grey[300],
         ),
-        onSaved: (String value) {
-          _email = value;
-        },
       ),
     );
   }
@@ -250,9 +252,6 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           filled: true,
           fillColor: Colors.grey[300],
         ),
-        onSaved: (String value) {
-          _phoneno = value;
-        },
       ),
     );
   }
@@ -322,7 +321,19 @@ class _UpgradePaymentState extends State<UpgradePayment> {
                                         5 * SizeConfig.widthMultiplier,
                                         0),
                                     child: RaisedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        var tokenGenerate = Uuid();
+                                        var refCode = tokenGenerate.v4();
+                                        var data = RemitaData(
+                                            firstname: _firstname,
+                                            lastname: _lastname,
+                                            email: _email,
+                                            phonenumber: _phoneno,
+                                            refCode: refCode,
+                                            total: _total);
+
+                                        Get.to(RemitaCustomGateway(data: data));
+                                      },
                                       color: Colors.red,
                                       child: Text('Make Payment',
                                           style: TextStyle(

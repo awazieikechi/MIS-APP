@@ -8,9 +8,10 @@ import 'package:flushbar/flushbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:niia_mis_app/pages/home.dart';
+import 'package:niia_mis_app/pages/payments/remitacustomgateway.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 import 'package:uuid/uuid.dart';
+import 'package:niia_mis_app/widgets/remitadata.dart';
 
 class UserPayment extends StatefulWidget {
   String message;
@@ -159,9 +160,6 @@ class _UserPaymentState extends State<UserPayment> {
           filled: true,
           fillColor: Colors.cyan[300],
         ),
-        onSaved: (String value) {
-          _processingFeeAmount = value;
-        },
       ),
     );
   }
@@ -332,18 +330,15 @@ class _UserPaymentState extends State<UserPayment> {
                                         0),
                                     child: RaisedButton(
                                       onPressed: () {
-                                        var uuid = Uuid();
-                                        var myStringrefCode = uuid.v1();
-                                        var refCode = myStringrefCode
-                                            .replaceAll(RegExp('-'), '');
-                                        var data = {
-                                          'firstname': _firstname,
-                                          'lastname': _lastname,
-                                          'email': _email,
-                                          'amount': _total,
-                                          'phonenumber': _phoneno,
-                                          'refCode': refCode,
-                                        };
+                                        var tokenGenerate = Uuid();
+                                        var refCode = tokenGenerate.v4();
+                                        var data = RemitaData(
+                                            firstname: _firstname.toString(),
+                                            lastname: _lastname,
+                                            email: _email,
+                                            phonenumber: _phoneno,
+                                            refCode: refCode,
+                                            total: _total);
 
                                         Get.to(RemitaCustomGateway(data: data));
                                       },
@@ -428,92 +423,5 @@ class _UserPaymentState extends State<UserPayment> {
 
   void cancelPage() {
     Get.to(Home());
-  }
-}
-
-class RemitaCustomGateway extends StatefulWidget {
-  final data;
-
-  RemitaCustomGateway({this.data});
-
-  @override
-  _RemitaCustomGatewayState createState() =>
-      _RemitaCustomGatewayState(data: data);
-}
-
-class _RemitaCustomGatewayState extends State<RemitaCustomGateway> {
-  final data;
-
-  _RemitaCustomGatewayState({this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    print(data);
-    return WebViewPlus(
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (controller) {
-        controller.loadString("""
-           <!DOCTYPE html>
-<html lang="en">
-  <body onload="makePayment()">
-    <script>
-      function makePayment() {
-        var paymentEngine = RmPaymentEngine.init({
-          key:
-            "QzAwMDAxOTUwNjl8NDMyNTkxNjl8ZTg0MjI2MDg4MjU0NzA2NTY2MTYwNGU1NjNiMjUzYjk4ZDQwZjljZGFiMTVmYTljMDUwMGQ0MDg2MjIyYjEyNTA1ZTE2MTMxNmE3ZjM1OTZmYmJkOTE2MTRiY2NmZTY5NTM4MGQ2MDBlZGJlZmM2ODc2YTc2M2M4MjgyZmFjODc=",
-          email: "$data.email",
-          currency: "NGN",
-          firstName: "$data.firstname",
-          lastName: "$data.lastname",
-          customerId: "$data.email",
-          phoneNumber: "$data.phonenumber",
-          transactionId: "$data.refCode",
-          narration: "GIFMIS Revenue Reference Number 1000184417",
-          amount: "1000",
-
-          onSuccess: function (response) {
-            console.log(JSON.stringify(response));
-            var onSuccess;
-            onSuccess.postMessage(response);
-          },
-          onError: function (response) {
-            console.log(JSON.stringify(response));
-          },
-          onClose: function () {
-            console.log("closed");
-          },
-        });
-        paymentEngine.openIframe();
-      }
-    </script>
-    <script
-      type="text/javascript"
-      src="https://remitademo.net/payment/v1/remita-pay-inline.bundle.js"
-      \
-    ></script>
-  </body>
-</html>
-      """);
-      },
-      javascriptChannels: Set.from(
-        [
-          JavascriptChannel(
-              name: 'OnSuccess',
-              onMessageReceived: (JavascriptMessage message) {
-                print(message.message);
-              }),
-          JavascriptChannel(
-              name: 'onClose',
-              onMessageReceived: (JavascriptMessage message) {
-                print(message.message);
-              }),
-          JavascriptChannel(
-              name: 'OnError',
-              onMessageReceived: (JavascriptMessage message) {
-                print(message.message);
-              }),
-        ],
-      ),
-    );
   }
 }

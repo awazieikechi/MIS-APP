@@ -42,6 +42,16 @@ class _NewsState extends State<News> {
     }
   }
 
+  String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(
+      r"<[^>]*>",
+      multiLine: true,
+      caseSensitive: true
+    );
+
+    return htmlText.replaceAll(exp, '');
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -131,7 +141,7 @@ class _NewsState extends State<News> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8),
-                                    child: Text(snapshot.data[index].excerpt,
+                                    child: Text(removeAllHtmlTags(snapshot.data[index].excerpt),
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize:

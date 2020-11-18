@@ -20,7 +20,10 @@ class Network {
 
   authData(data, apiUrl) async {
     var fullUrl = _url + apiUrl;
-    if (apiUrl == '/profile/update' || apiUrl == '/changepassword') {
+    if (apiUrl == '/profile/update' ||
+        apiUrl == '/changepassword' ||
+        apiUrl == '/payments' ||
+        apiUrl == '/upgrade') {
       await _getToken();
     }
     return await http.post(fullUrl,
