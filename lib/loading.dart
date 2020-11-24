@@ -41,6 +41,7 @@ class Loading {
       localStorage.setString('userOrganisation', userdetail.user.organisation);
       localStorage.setString(
           'userMembership', userdetail.user.membershipSubscription);
+      localStorage.setString('userName', userdetail.user.username);
       Get.to(UserPayment(message: message));
     } else if (result['profilefailed'] != null) {
       var userdetail = userDetailsFromJson(res.body);
@@ -61,10 +62,12 @@ class Loading {
       localStorage.setString('userOrganisation', userdetail.user.organisation);
       localStorage.setString(
           'userMembership', userdetail.user.membershipSubscription);
+      localStorage.setString('userName', userdetail.user.username);
 
       Get.to(EditProfile(message: message));
     } else if (result['success']) {
       UserApi userdetail = UserApi.fromJson(result);
+      print(userdetail.user[0].gender);
       localStorage.setString('userFirstName', userdetail.user[0].firstname);
       localStorage.setString('userLastName', userdetail.user[0].lastname);
       localStorage.setString('userEmail', userdetail.user[0].email);
@@ -85,6 +88,7 @@ class Loading {
           'userMembership', userdetail.user[0].membershipSubscription);
       localStorage.setString('userImage', userdetail.user[0].passport_image);
       localStorage.setString('userMemberId', userdetail.user[0].member_id);
+      localStorage.setString('userName', userdetail.user[0].username);
       localStorage.setString('userStatus', '1');
       Get.to(Home());
     }

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'dart:convert';
 import 'package:niia_mis_app/network_utils/api.dart';
-import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:niia_mis_app/pages/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:intl/intl.dart';
+import 'package:flushbar/flushbar.dart';
+import 'package:flutter/scheduler.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -584,6 +585,7 @@ class _RegisterState extends State<Register> {
 
     var res = await Network().authData(data, '/register');
     var body = json.decode(res.body);
+    var errorResponse = body['error'];
     print(data);
     print(body);
     if (body['success']) {
@@ -594,6 +596,23 @@ class _RegisterState extends State<Register> {
         context,
         new MaterialPageRoute(builder: (context) => Home()),
       );
+    } else {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Flushbar(
+            messageText: Text(errorResponse.toString(),
+                style: TextStyle(
+                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    color: Colors.white)),
+            icon: Icon(
+              Icons.info_outline,
+              size: 28.0,
+              color: Colors.blue[300],
+            ),
+            duration: Duration(seconds: 8),
+            leftBarIndicatorColor: Colors.blue[300],
+            backgroundColor: Colors.black)
+          ..show(context);
+      });
     }
 
     setState(() {

@@ -24,6 +24,7 @@ class User {
   final String firstname;
   final String lastname;
   final int id;
+  var username;
   var email;
   var phonenumber;
   var dateOfBirth;
@@ -43,6 +44,7 @@ class User {
       {this.firstname,
       this.lastname,
       this.id,
+      this.username,
       this.email,
       this.phonenumber,
       this.dateOfBirth,
@@ -63,6 +65,7 @@ class User {
       id: json['id'],
       firstname: json['firstname'],
       lastname: json['lastname'],
+      username: json['username'],
       email: json['email'],
       phonenumber: json['phonenumber'],
       dateOfBirth: json['date_of_birth'].toString(),
@@ -71,7 +74,7 @@ class User {
       organisation: json['organisation'],
       organisationAddress: json['organisation_address'],
       membershipSubscription: json['membership_subscription'],
-      gender: json['gender'],
+      gender: json['Gender'],
       city: json['city'],
       state: json['state'],
       country: json['country'],

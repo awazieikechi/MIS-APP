@@ -10,8 +10,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:get/get.dart';
 
-import 'package:niia_mis_app/loading.dart';
-
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();

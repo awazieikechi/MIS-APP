@@ -21,6 +21,7 @@ class NavDrawer extends StatefulWidget {
 class _NavDrawerState extends State<NavDrawer> {
   var firstname;
   var lastname;
+  var username;
 
   void initState() {
     super.initState();
@@ -31,6 +32,13 @@ class _NavDrawerState extends State<NavDrawer> {
     firstname = localStorage.getString('userFirstName');
     lastname = localStorage.getString('userLastName');
     return firstname + " " + lastname;
+  }
+
+  Future<String> getUserName() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    username = localStorage.getString('userName');
+
+    return username;
   }
 
   @override
@@ -92,7 +100,32 @@ class _NavDrawerState extends State<NavDrawer> {
                           }
                         },
                       ),
-                      accountEmail: null,
+                      accountEmail: FutureBuilder(
+                        future: getUserName(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (!snapshot.hasData) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasData) {
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                return Text("Waiting...");
+                              case ConnectionState.waiting:
+                                return CircularProgressIndicator();
+                              case ConnectionState.active:
+                              case ConnectionState.done:
+                                return Text(snapshot.data,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 3 * SizeConfig.textMultiplier,
+                                      fontWeight: FontWeight.w700,
+                                    ));
+                              default:
+                                break;
+                            }
+                          }
+                        },
+                      ),
                     );
 
                   default:

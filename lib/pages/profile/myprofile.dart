@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:niia_mis_app/pages/profile/editprofile.dart';
 import 'package:niia_mis_app/pages/payments/transactions.dart';
+import 'package:get/get.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -21,7 +22,9 @@ class _ProfileState extends State<Profile> {
   String userMembership;
   String userCity;
   String userMemberId;
+  String userName;
   String userdate_of_birth;
+  String message = 'false';
 
   @override
   Widget build(BuildContext context) {
@@ -267,6 +270,56 @@ class _ProfileState extends State<Profile> {
                         height: 2 * SizeConfig.heightMultiplier,
                       ),
                       FutureBuilder(
+                        future: getUserName(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          print(snapshot.connectionState);
+                          print(snapshot.data);
+                          if (!snapshot.hasData) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if (snapshot.hasData) {
+                            print(snapshot.data);
+                            switch (snapshot.connectionState) {
+                              case ConnectionState.none:
+                                return Text("Waiting...");
+                              case ConnectionState.waiting:
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              case ConnectionState.active:
+                              case ConnectionState.done:
+                                return Center(
+                                  child: Text(
+                                    '${snapshot.data}',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 3 * SizeConfig.textMultiplier,
+                                      fontFamily: 'Bebas Nue',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                );
+                              default:
+                                break;
+                            }
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text(
+                              'There was an error',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 2.57 * SizeConfig.textMultiplier,
+                                fontFamily: 'Typographica',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ));
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 3.14 * SizeConfig.heightMultiplier,
+                      ),
+                      FutureBuilder(
                         future: getUserHomeAddress(),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
@@ -439,10 +492,7 @@ class _ProfileState extends State<Profile> {
                                     0 * SizeConfig.widthMultiplier,
                                     2 * SizeConfig.heightMultiplier),
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => EditProfile()));
+                                  Get.to(EditProfile(message: message));
                                 },
                               ),
                             ),
@@ -533,5 +583,12 @@ class _ProfileState extends State<Profile> {
     userMemberId = localStorage.getString('userMemberId');
 
     return userMemberId;
+  }
+
+  getUserName() async {
+    SharedPreferences localStorage = await SharedPreferences.getInstance();
+    userName = localStorage.getString('userName');
+
+    return userName;
   }
 }

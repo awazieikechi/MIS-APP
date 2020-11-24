@@ -2,9 +2,11 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:niia_mis_app/pages/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'dart:io';
+import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:path/path.dart' as path;
 import 'package:niia_mis_app/network_utils/api.dart';
@@ -12,32 +14,36 @@ import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 
 class EditProfile extends StatefulWidget {
-  final String message;
+  String message;
   EditProfile({this.message});
 
   @override
-  _EditProfileState createState() => _EditProfileState(message: message);
+  _EditProfileState createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
   String message;
   _EditProfileState({this.message});
 
-  /* Data Variable For Upload Documents */
+// Data Variable For Upload Documents
   var token;
   File _imagePassport;
   File _imageFirstDegree;
   File _imageMasterDegree;
   File _imageYouthService;
+  var imageData;
+
   final picker = ImagePicker();
   Dio dio = new Dio();
   Response response;
-  String progress;
-  
+  FormData formdata;
+  String uploadurl = "https://mis.michelleandanthony.net/api/upload";
 
-  /* Data Variable For Update Profile */
+  // Data Variable For Update Profile
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final _formKey = GlobalKey<FormState>();
@@ -63,7 +69,7 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController _dateofbirthController;
   TextEditingController _firstnameController;
   TextEditingController _lastnameController;
-  // TextEditingController _gendervalueController;
+  TextEditingController _gendervalueController;
   TextEditingController _membershipsubscriptionController;
   TextEditingController _emailController;
   TextEditingController _homeaddressController;
@@ -76,8 +82,14 @@ class _EditProfileState extends State<EditProfile> {
   TextEditingController _organisationController;
   var _initialdateofbirthController;
 
+  void initState() {
+    checkMessage(message);
+    getSharedPrefs();
+    super.initState();
+  }
+
   /* Get Saved Data for Form*/
-  Future<Null> getSharedPrefs() async {
+  getSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     _firstname = prefs.getString('userFirstName');
@@ -91,14 +103,13 @@ class _EditProfileState extends State<EditProfile> {
     _organisationaddress = prefs.getString('userOrganisationAddress');
     _city = prefs.getString('userCity');
     _dateofbirth = prefs.getString('userBirthDate');
-    _gendervalue = prefs.getString('userGender');
+    var _gendervaluestate = prefs.getString('userGender');
     _country = prefs.getString('userCountry');
     _state = prefs.getString('userState');
 
     _organisation = prefs.getString('userOrganisation');
     _membershipSubscription = prefs.getString('userMembership');
     var tokenstate = jsonDecode(prefs.getString('token'));
-    //print(_dateofbirth);
 
     setState(() {
       _firstnameController = new TextEditingController(text: _firstname);
@@ -109,7 +120,7 @@ class _EditProfileState extends State<EditProfile> {
       _emailController = new TextEditingController(text: _email);
       _homeaddressController = new TextEditingController(text: _homeaddress);
       _phonenumberController = new TextEditingController(text: _phonenumber);
-      // _dateofbirthController = _dateofbirth;
+
       _dateofbirthController = new TextEditingController(text: _dateofbirth);
       _initialdateofbirthController = _dateofbirth;
       _cityController = new TextEditingController(text: _city);
@@ -120,15 +131,10 @@ class _EditProfileState extends State<EditProfile> {
       _countryController = new TextEditingController(text: _country);
       _organisationController = new TextEditingController(text: _organisation);
       token = tokenstate;
-      print (token);
+      print(_gendervaluestate);
+
+      _gendervalue = _gendervaluestate;
     });
-  }
-
-  void initState() {
-    super.initState();
-
-    checkMessage(message);
-    getSharedPrefs();
   }
 
   void checkMessage(message) {
@@ -247,10 +253,11 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _buildGender() {
+    print(_gendervalue);
     return DropdownButton<String>(
       hint: Text('Select Gender'),
       isExpanded: true,
-      value: _gender == null ? _gendervalue : gender[_gender],
+      value: _gendervalue != null ? _gendervalue : gender[_gender],
       items: gender.map((String value) {
         return DropdownMenuItem<String>(
           value: value,
@@ -574,6 +581,11 @@ class _EditProfileState extends State<EditProfile> {
   Future _pickImagePassportFromGallery() async {
     final pickedFile =
         await picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+    Directory filePathImagePassport = await getApplicationDocumentsDirectory();
+    final String _filePathImagePassport = filePathImagePassport.path;
+    final fileName = path.basename(pickedFile.path);
+    final File _imagePassportFile =
+        await File(pickedFile.path).copy('$_filePathImagePassport/$fileName');
 
     setState(() {
       if (pickedFile != null) {
@@ -595,6 +607,11 @@ class _EditProfileState extends State<EditProfile> {
   Future _pickFirstDegreeFromGallery() async {
     final pickedFile =
         await picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+    Directory filePathFirstDegree = await getApplicationDocumentsDirectory();
+    final String _filePathFirstDegree = filePathFirstDegree.path;
+    final fileName = path.basename(pickedFile.path);
+    final File _imageFirstDegreeFile =
+        await File(pickedFile.path).copy('$_filePathFirstDegree/$fileName');
 
     setState(() {
       if (pickedFile != null) {
@@ -616,6 +633,11 @@ class _EditProfileState extends State<EditProfile> {
   Future _pickMasterDegreeFromGallery() async {
     final pickedFile =
         await picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+    Directory filePathMasterDegree = await getApplicationDocumentsDirectory();
+    final String _filePathMasterDegree = filePathMasterDegree.path;
+    final fileName = path.basename(pickedFile.path);
+    final File _imageMasterDegreeFile =
+        await File(pickedFile.path).copy('$_filePathMasterDegree/$fileName');
 
     setState(() {
       if (pickedFile != null) {
@@ -637,6 +659,11 @@ class _EditProfileState extends State<EditProfile> {
   Future _pickYouthServiceFromGallery() async {
     final pickedFile =
         await picker.getImage(source: ImageSource.gallery, imageQuality: 50);
+    Directory filePathYouthDegree = await getApplicationDocumentsDirectory();
+    final String _filePathYouthDegree = filePathYouthDegree.path;
+    final fileName = path.basename(pickedFile.path);
+    final File _imageYouthServiceFile =
+        await File(pickedFile.path).copy('$_filePathYouthDegree/$fileName');
 
     setState(() {
       if (pickedFile != null) {
@@ -708,28 +735,44 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(
               height: 3 * SizeConfig.heightMultiplier,
             ),
-            OutlineButton(
-              onPressed: _pickMasterDegreeFromGallery,
-              borderSide: BorderSide(
-                color: Colors.blue[900],
-                width: 2.0,
-              ),
-              child: Text('Choose Master Degree Certificate',
-                  style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.textMultiplier,
-                  )),
-            ),
+            _membershipSubscription == "Associate"
+                ? SizedBox()
+                : OutlineButton(
+                    onPressed: _pickMasterDegreeFromGallery,
+                    borderSide: BorderSide(
+                      color: Colors.blue[900],
+                      width: 2.0,
+                    ),
+                    child: Text("Choose Master Degree Certificate ",
+                        style: TextStyle(
+                          fontSize: 2.65 * SizeConfig.textMultiplier,
+                        )),
+                  ),
             SizedBox(
               height: 3 * SizeConfig.heightMultiplier,
             ),
-            showMasterDegree(),
+            _membershipSubscription == "Associate"
+                ? SizedBox()
+                : showMasterDegree(),
             SizedBox(
               height: 3 * SizeConfig.heightMultiplier,
             ),
             RaisedButton(
               onPressed: startUpload,
               color: Colors.blue[900],
-              child: Text('Register',
+              child: Text('Upload Documents',
+                  style: TextStyle(
+                    fontSize: 2.65 * SizeConfig.textMultiplier,
+                    color: Colors.white,
+                  )),
+            ),
+            SizedBox(
+              height: 3 * SizeConfig.heightMultiplier,
+            ),
+            RaisedButton(
+              onPressed: cancelUpload,
+              color: Colors.red[900],
+              child: Text('Cancel',
                   style: TextStyle(
                     fontSize: 2.65 * SizeConfig.textMultiplier,
                     color: Colors.white,
@@ -824,7 +867,7 @@ class _EditProfileState extends State<EditProfile> {
     var body = json.decode(res.body);
     //print(body);
 
-    if (body['success']) {
+    if (body['success']?.isNotEmpty == true) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Flushbar(
             messageText: Text("Your Profile has been successfully updated!",
@@ -841,7 +884,7 @@ class _EditProfileState extends State<EditProfile> {
             backgroundColor: Colors.black)
           ..show(context);
       });
-    } else if (!body) {
+    } else {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Flushbar(
             messageText: Text("Profile could not be updated!",
@@ -862,73 +905,73 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   startUpload() async {
-    setState(() {
-      _isLoading = true;
-    });
-
-    var imageData = {
-      'passport_image': _imagePassport,
-      'first_degree_image': _imageFirstDegree,
-      'youth_service_image': _imageYouthService,
-      'master_degree_image': _imageMasterDegree,
-    };
-
-    print(imageData);
-
-    String uploadurl = "https://mis.michelleandanthony.net/api/upload";
-
     FormData formdata = FormData.fromMap({
-      "passport_image": await MultipartFile.fromFile(_imagePassport.path,
-          filename: path.basename(_imagePassport.path)
-          //show only filename from path
-          ),
-      "first_degree_image": await MultipartFile.fromFile(_imageFirstDegree.path,
-          filename: path.basename(_imageFirstDegree.path)
-          //show only filename from path
-          ),
-      "youth_service_image": await MultipartFile.fromFile(
-          _imageYouthService.path,
-          filename: path.basename(_imageYouthService.path)
-          //show only filename from path
-          ),
-      "master_degree_image": await MultipartFile.fromFile(
-          _imageMasterDegree.path,
-          filename: path.basename(_imageMasterDegree.path)
-          //show only filename from path
-          ),
+      "passport_image": _imagePassport.path == null
+          ? ""
+          : await MultipartFile.fromFile(_imagePassport.path,
+              filename: path.basename(_imagePassport.path)
+              //show only filename from path
+              ),
+      "first_degree_image": _imageFirstDegree.path == null
+          ? ""
+          : await MultipartFile.fromFile(_imageFirstDegree.path,
+              filename: path.basename(_imageFirstDegree.path)
+              //show only filename from path
+              ),
+      "youth_service_image": _imageYouthService.path == null
+          ? ""
+          : await MultipartFile.fromFile(_imageYouthService.path,
+              filename: path.basename(_imageYouthService.path)
+              //show only filename from path
+              ),
+      "master_degree_image": _imageMasterDegree == null
+          ? ""
+          : await MultipartFile.fromFile(_imageMasterDegree.path,
+              filename: path.basename(_imageMasterDegree.path)
+              //show only filename from path
+              ),
     });
-     try{
-    response = await dio.post(
-      uploadurl,
-      data: formdata,
-      
-    options: Options(
-    headers: {
-      
-        'Authorization': 'Bearer '+token,
-    },
-  ),
-      onSendProgress: (int sent, int total) {
-        String percentage = (sent / total * 100).toStringAsFixed(2);
-        setState(() {
-          progress = "$sent" +
-              " Bytes of " "$total Bytes - " +
-              percentage +
-              " % uploaded";
-          //update the progress
-        });
-      },
-    );
-    print(response.toString());
-     } on DioError catch(e) {
-    print (e);
+
+    try {
+      response = await dio.post(
+        uploadurl,
+        data: formdata,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ' + token,
+          },
+        ),
+      );
+      //
+    } on DioError catch (e) {
+      print(e.toString());
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        Flushbar(
+            messageText: Text("There is an issue with uploading!!",
+                style: TextStyle(
+                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    color: Colors.white)),
+            icon: Icon(
+              Icons.info_outline,
+              size: 28.0,
+              color: Colors.blue[300],
+            ),
+            duration: Duration(seconds: 8),
+            leftBarIndicatorColor: Colors.blue[300],
+            backgroundColor: Colors.black)
+          ..show(context);
+      });
     }
-    if (response.statusCode == 200) {
+    print(response.statusCode);
+    print(response.data.toString().substring(1, 8));
+
+    var responseProfileMessage = response.data.toString().substring(1, 7);
+    if (responseProfileMessage == "success") {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('userStatus', '1');
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Flushbar(
-            messageText: Text("Your Documents has been successfully updated!",
+            messageText: Text("Your Profile has been successfully updated!",
                 style: TextStyle(
                     fontSize: 2.5 * SizeConfig.textMultiplier,
                     color: Colors.white)),
@@ -937,16 +980,16 @@ class _EditProfileState extends State<EditProfile> {
               size: 28.0,
               color: Colors.blue[300],
             ),
-            duration: Duration(seconds: 8),
+            duration: Duration(seconds: 12),
             leftBarIndicatorColor: Colors.blue[300],
             backgroundColor: Colors.black)
           ..show(context);
       });
-      //print response from server
+      Get.to(Home());
     } else {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Flushbar(
-            messageText: Text(response.toString(),
+            messageText: Text(response.data.toString(),
                 style: TextStyle(
                     fontSize: 2.5 * SizeConfig.textMultiplier,
                     color: Colors.white)),
@@ -955,11 +998,16 @@ class _EditProfileState extends State<EditProfile> {
               size: 28.0,
               color: Colors.blue[300],
             ),
-            duration: Duration(seconds: 8),
+            duration: Duration(seconds: 12),
             leftBarIndicatorColor: Colors.blue[300],
             backgroundColor: Colors.black)
           ..show(context);
       });
+      Get.to(Home());
     }
+  }
+
+  void cancelUpload() {
+    Get.to(Home());
   }
 }

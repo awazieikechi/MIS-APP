@@ -49,7 +49,7 @@ class _UpgradePaymentState extends State<UpgradePayment> {
     checkUserMembershipStatus();
     getPaymentProcessingDetails();
     getUserFullname();
-
+    sendNotificationUser();
     super.initState();
   }
 
@@ -106,6 +106,26 @@ class _UpgradePaymentState extends State<UpgradePayment> {
       _fullnameController = new TextEditingController(text: _fullname);
       _emailnameController = new TextEditingController(text: _email);
       _phonenoController = new TextEditingController(text: _phoneno);
+    });
+  }
+
+  sendNotificationUser() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      Flushbar(
+          messageText: Text(
+              "You should be Approved to Upgrade Membership before you make payment",
+              style: TextStyle(
+                  fontSize: 2.5 * SizeConfig.textMultiplier,
+                  color: Colors.white)),
+          icon: Icon(
+            Icons.info_outline,
+            size: 4 * SizeConfig.heightMultiplier,
+            color: Colors.blue[300],
+          ),
+          duration: Duration(seconds: 8),
+          leftBarIndicatorColor: Colors.blue[300],
+          backgroundColor: Colors.black)
+        ..show(context);
     });
   }
 
