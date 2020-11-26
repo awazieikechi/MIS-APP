@@ -538,12 +538,19 @@ class _EditProfileState extends State<EditProfile> {
                       borderRadius: BorderRadius.circular(
                           1.57 * SizeConfig.safeBlockVertical),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (!_formKey.currentState.validate()) {
                         return;
                       }
                       _formKey.currentState.save();
-                      _updateuser();
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          });
+                      await _updateuser();
                     },
                     color: Colors.blue[900],
                     icon: Icon(
@@ -759,7 +766,16 @@ class _EditProfileState extends State<EditProfile> {
               height: 3 * SizeConfig.safeBlockVertical,
             ),
             RaisedButton(
-              onPressed: startUpload,
+              onPressed: () async {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    });
+                await startUpload();
+              },
               color: Colors.blue[900],
               child: Text('Upload Documents',
                   style: TextStyle(
@@ -842,7 +858,7 @@ class _EditProfileState extends State<EditProfile> {
         ));
   }
 
-  void _updateuser() async {
+  _updateuser() async {
     setState(() {
       _isLoading = true;
     });
@@ -867,7 +883,7 @@ class _EditProfileState extends State<EditProfile> {
 
     var res = await Network().authData(data, '/profile/update');
     var body = json.decode(res.body);
-    //print(body);
+    print(body);
 
     if (body['success']?.isNotEmpty == true) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -889,7 +905,7 @@ class _EditProfileState extends State<EditProfile> {
     } else {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         Flushbar(
-            messageText: Text("Profile could not be updated!",
+            messageText: Text(body['errors'].toString(),
                 style: TextStyle(
                     fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),

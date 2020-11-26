@@ -139,12 +139,19 @@ class _changePasswordState extends State<changePassword> {
                         borderRadius: BorderRadius.circular(
                             1.57 * SizeConfig.safeBlockVertical),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (!_formKey.currentState.validate()) {
                           return;
                         }
                         _formKey.currentState.save();
-                        _changepassword();
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            });
+                        await _changepassword();
                       },
                       color: Colors.blue[900],
                       icon: Icon(
@@ -173,7 +180,7 @@ class _changePasswordState extends State<changePassword> {
     );
   }
 
-  void _changepassword() async {
+  _changepassword() async {
     var data = {
       'current-password': _oldpassword,
       'new-password': _password,

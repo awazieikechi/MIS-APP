@@ -164,12 +164,20 @@ class _LoginState extends State<Login> {
                                       borderRadius: BorderRadius.circular(
                                           2.57 * SizeConfig.safeBlockVertical),
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
                                       if (!_formKey.currentState.validate()) {
                                         return;
                                       }
                                       _formKey.currentState.save();
-                                      _login();
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          });
+                                      await _login();
                                     },
                                     color: Colors.black,
                                     icon: SvgPicture.asset(
@@ -262,7 +270,7 @@ class _LoginState extends State<Login> {
         )));
   }
 
-  void _login() async {
+  _login() async {
     var data = {
       'username': _username,
       'password': _password,

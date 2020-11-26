@@ -525,12 +525,19 @@ class _RegisterState extends State<Register> {
                         borderRadius: BorderRadius.circular(
                             1.57 * SizeConfig.safeBlockVertical),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (!_formKey.currentState.validate()) {
                           return;
                         }
                         _formKey.currentState.save();
-                        _register();
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            });
+                        await _register();
                       },
                       color: Colors.blue[900],
                       icon: Icon(
@@ -559,7 +566,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void _register() async {
+  _register() async {
     setState(() {
       _isLoading = true;
     });
