@@ -453,6 +453,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: SafeArea(
           child: Container(
@@ -464,13 +465,13 @@ class _RegisterState extends State<Register> {
               children: [
                 CircleAvatar(
                   backgroundImage: AssetImage('assets/images/niialogo12.jpg'),
-                  radius: 7.0 * SizeConfig.heightMultiplier,
+                  radius: 7.0 * SizeConfig.safeBlockVertical,
                 ),
                 Text(
                   'Register',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 5.7 * SizeConfig.textMultiplier,
+                    fontSize: 5.7 * SizeConfig.safeBlockHorizontal,
                     fontFamily: 'Typographica',
                     fontWeight: FontWeight.w700,
                   ),
@@ -485,44 +486,44 @@ class _RegisterState extends State<Register> {
               child: Column(
                 children: [
                   _buildFirstName(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildLastName(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildUserName(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildEmail(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildPassword(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildConfirmPassword(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildHomeAdress(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildGender(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildContactNumber(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildDateofBirth(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildCity(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildState(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildCountry(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildOrganisation(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildPosition(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildOrganisationAddress(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildMembership(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   Container(
                     child: RaisedButton.icon(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            1.57 * SizeConfig.heightMultiplier),
+                            1.57 * SizeConfig.safeBlockVertical),
                       ),
                       onPressed: () {
                         if (!_formKey.currentState.validate()) {
@@ -538,17 +539,17 @@ class _RegisterState extends State<Register> {
                       ),
                       label: Text('Register',
                           style: TextStyle(
-                            fontSize: 2.65 * SizeConfig.textMultiplier,
+                            fontSize: 2.65 * SizeConfig.safeBlockHorizontal,
                             color: Colors.white,
                           )),
                       padding: EdgeInsets.fromLTRB(
-                          5 * SizeConfig.widthMultiplier,
-                          2.86 * SizeConfig.heightMultiplier,
-                          5 * SizeConfig.widthMultiplier,
-                          2.86 * SizeConfig.heightMultiplier),
+                          5 * SizeConfig.safeBlockHorizontal,
+                          2.86 * SizeConfig.safeBlockVertical,
+                          5 * SizeConfig.safeBlockHorizontal,
+                          2.86 * SizeConfig.safeBlockVertical),
                     ),
                   ),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 ],
               ),
             ),
@@ -601,7 +602,7 @@ class _RegisterState extends State<Register> {
         Flushbar(
             messageText: Text(errorResponse.toString(),
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockHorizontal,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,

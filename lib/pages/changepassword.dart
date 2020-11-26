@@ -95,6 +95,7 @@ class _changePasswordState extends State<changePassword> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: SafeArea(
           child: Container(
@@ -106,13 +107,13 @@ class _changePasswordState extends State<changePassword> {
               children: [
                 CircleAvatar(
                   backgroundImage: AssetImage('assets/images/niialogo12.jpg'),
-                  radius: 7.0 * SizeConfig.heightMultiplier,
+                  radius: 7.0 * SizeConfig.safeBlockVertical,
                 ),
                 Text(
                   'Password Reset',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 5.7 * SizeConfig.textMultiplier,
+                    fontSize: 5.7 * SizeConfig.safeBlockHorizontal,
                     fontFamily: 'Typographica',
                     fontWeight: FontWeight.w700,
                   ),
@@ -127,16 +128,16 @@ class _changePasswordState extends State<changePassword> {
               child: Column(
                 children: [
                   _buildOldPassword(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildNewPassword(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildConfirmPassword(),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   Container(
                     child: RaisedButton.icon(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(
-                            1.57 * SizeConfig.heightMultiplier),
+                            1.57 * SizeConfig.safeBlockVertical),
                       ),
                       onPressed: () {
                         if (!_formKey.currentState.validate()) {
@@ -152,17 +153,17 @@ class _changePasswordState extends State<changePassword> {
                       ),
                       label: Text('Change Password',
                           style: TextStyle(
-                            fontSize: 2.65 * SizeConfig.textMultiplier,
+                            fontSize: 2.65 * SizeConfig.safeBlockHorizontal,
                             color: Colors.white,
                           )),
                       padding: EdgeInsets.fromLTRB(
-                          5 * SizeConfig.widthMultiplier,
-                          2.86 * SizeConfig.heightMultiplier,
-                          5 * SizeConfig.widthMultiplier,
-                          2.86 * SizeConfig.heightMultiplier),
+                          5 * SizeConfig.safeBlockHorizontal,
+                          2.86 * SizeConfig.safeBlockVertical,
+                          5 * SizeConfig.safeBlockHorizontal,
+                          2.86 * SizeConfig.safeBlockVertical),
                     ),
                   ),
-                  SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                  SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 ],
               ),
             ),
@@ -188,7 +189,7 @@ class _changePasswordState extends State<changePassword> {
         Flushbar(
             messageText: Text("Password changed successfully !",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockHorizontal,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
@@ -206,7 +207,7 @@ class _changePasswordState extends State<changePassword> {
         Flushbar(
             messageText: Text("Password could not be updated!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockHorizontal,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,

@@ -57,21 +57,20 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                       /*  */
                       Expanded(
                         child: Container(
-                         
                           child: Column(
-                            
                             children: [
                               SizedBox(
-                                height: 2.14 * SizeConfig.heightMultiplier,
+                                height: 2.14 * SizeConfig.safeBlockVertical,
                               ),
-                              Text(snapshot.data[0].paymentType,
-                                  style: TextStyle(
-                                    color: Colors.blue[900],
-                                    fontSize: 3.0 * SizeConfig.textMultiplier,
-                                    fontFamily: 'Bebas Nue',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  ),
+                              Text(
+                                snapshot.data[0].paymentType,
+                                style: TextStyle(
+                                  color: Colors.blue[900],
+                                  fontSize: 3.0 * SizeConfig.safeBlockVertical,
+                                  fontFamily: 'Bebas Nue',
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                               Text(
                                   snapshot.data[0].startDate
                                           .toString()
@@ -82,11 +81,11 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                                           .substring(0, 10),
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 2.43 * SizeConfig.textMultiplier,
+                                    fontSize:
+                                        2.43 * SizeConfig.safeBlockVertical,
                                     fontFamily: 'Bebas Nue',
                                     fontWeight: FontWeight.w700,
                                   )),
-                              
                             ],
                           ),
                         ),
@@ -94,26 +93,24 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                       Expanded(
                         child: Container(
                           padding: new EdgeInsets.all(
-                              0.95 * SizeConfig.heightMultiplier),
+                              0.95 * SizeConfig.safeBlockVertical),
                           child: Column(
-                            
                             children: [
                               SizedBox(
-                                height: 2.14 * SizeConfig.heightMultiplier,
+                                height: 2.14 * SizeConfig.safeBlockVertical,
                               ),
                               Text('N ' + snapshot.data[0].amount.toString(),
                                   style: TextStyle(
                                     color: Colors.blue[900],
-                                    fontSize: 3.0 * SizeConfig.textMultiplier,
+                                    fontSize:
+                                        3.0 * SizeConfig.safeBlockVertical,
                                     fontFamily: 'Bebas Nue',
                                     fontWeight: FontWeight.w700,
                                   )),
-                             
                             ],
                           ),
                         ),
                       ),
-                     
                     ],
                   ),
                 );
@@ -128,7 +125,7 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                   'Could not get News',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 2.57 * SizeConfig.textMultiplier,
+                    fontSize: 2.57 * SizeConfig.safeBlockVertical,
                     fontFamily: 'Typographica',
                     fontWeight: FontWeight.w700,
                   ),
@@ -167,7 +164,7 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                             Expanded(
                               child: Container(
                                 padding: new EdgeInsets.only(
-                                    left: 2.5 * SizeConfig.heightMultiplier),
+                                    left: 2.5 * SizeConfig.safeBlockVertical),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
@@ -175,13 +172,13 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                                   children: [
                                     SizedBox(
                                       height:
-                                          5.14 * SizeConfig.heightMultiplier,
+                                          5.14 * SizeConfig.safeBlockVertical,
                                     ),
                                     Text(snapshot.data[index].paymentType,
                                         style: TextStyle(
                                           color: Colors.blue[900],
-                                          fontSize:
-                                              3.0 * SizeConfig.textMultiplier,
+                                          fontSize: 3.0 *
+                                              SizeConfig.safeBlockVertical,
                                           fontFamily: 'Bebas Nue',
                                           fontWeight: FontWeight.w700,
                                         )),
@@ -195,14 +192,14 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                                                 .substring(0, 10),
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize:
-                                              2.43 * SizeConfig.textMultiplier,
+                                          fontSize: 2.43 *
+                                              SizeConfig.safeBlockVertical,
                                           fontFamily: 'Bebas Nue',
                                           fontWeight: FontWeight.w700,
                                         )),
                                     SizedBox(
                                       height:
-                                          2.14 * SizeConfig.heightMultiplier,
+                                          2.14 * SizeConfig.safeBlockVertical,
                                     ),
                                   ],
                                 ),
@@ -211,7 +208,7 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                             Expanded(
                               child: Container(
                                 padding: new EdgeInsets.only(
-                                    left: 2.45 * SizeConfig.heightMultiplier),
+                                    left: 2.45 * SizeConfig.safeBlockVertical),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
@@ -219,7 +216,7 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                                   children: [
                                     SizedBox(
                                       height:
-                                          2.14 * SizeConfig.heightMultiplier,
+                                          2.14 * SizeConfig.safeBlockVertical,
                                     ),
                                     Text(
                                         'N ' +
@@ -227,21 +224,21 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                                                 .toString(),
                                         style: TextStyle(
                                           color: Colors.blue[900],
-                                          fontSize:
-                                              3.0 * SizeConfig.textMultiplier,
+                                          fontSize: 3.0 *
+                                              SizeConfig.safeBlockVertical,
                                           fontFamily: 'Bebas Nue',
                                           fontWeight: FontWeight.w700,
                                         )),
                                     SizedBox(
                                       height:
-                                          2.14 * SizeConfig.heightMultiplier,
+                                          2.14 * SizeConfig.safeBlockVertical,
                                     ),
                                   ],
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 2.14 * SizeConfig.heightMultiplier,
+                              height: 2.14 * SizeConfig.safeBlockVertical,
                             ),
                           ],
                         ),
@@ -258,7 +255,7 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
                   'Could not get News',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 2.57 * SizeConfig.textMultiplier,
+                    fontSize: 2.57 * SizeConfig.safeBlockVertical,
                     fontFamily: 'Typographica',
                     fontWeight: FontWeight.w700,
                   ),
@@ -271,50 +268,41 @@ class _UserPaymentTransactionState extends State<UserPaymentTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return OrientationBuilder(
-          builder: (BuildContext context, Orientation orientation) {
-            SizeConfig().init(constraints, orientation);
-            return Scaffold(
-              drawer: NavDrawer(),
-              appBar: AppBar(
-                title: Text('My Transactions',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 3.5 * SizeConfig.textMultiplier,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w700,
-                    )),
-                centerTitle: true,
-                backgroundColor: Colors.blue[800],
-                iconTheme: new IconThemeData(color: Colors.white),
+    SizeConfig().init(context);
+    return Scaffold(
+      drawer: NavDrawer(),
+      appBar: AppBar(
+        title: Text('My Transactions',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 3.5 * SizeConfig.safeBlockVertical,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
+            )),
+        centerTitle: true,
+        backgroundColor: Colors.blue[800],
+        iconTheme: new IconThemeData(color: Colors.white),
+      ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(color: Colors.blue[900]),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: new Border.all(
+                  color: Colors.black,
+                  width: 1.25 * SizeConfig.safeBlockHorizontal,
+                  style: BorderStyle.solid),
+              borderRadius: new BorderRadius.vertical(
+                top: new Radius.circular(7.5 * SizeConfig.safeBlockVertical),
               ),
-              body: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(color: Colors.blue[900]),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: new Border.all(
-                          color: Colors.black,
-                          width: 1.25 * SizeConfig.widthMultiplier,
-                          style: BorderStyle.solid),
-                      borderRadius: new BorderRadius.vertical(
-                        top: new Radius.circular(
-                            7.5 * SizeConfig.heightMultiplier),
-                      ),
-                    ),
-                    child: getWidget(),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
+            ),
+            child: getWidget(),
+          ),
+        ],
+      ),
     );
   }
 }

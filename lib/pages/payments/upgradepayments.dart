@@ -62,11 +62,11 @@ class _UpgradePaymentState extends State<UpgradePayment> {
             messageText: Text(
                 "This is the final Member Type. You cannot Upgrade!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
-              size: 4 * SizeConfig.heightMultiplier,
+              size: 4 * SizeConfig.safeBlockVertical,
               color: Colors.blue[300],
             ),
             duration: Duration(seconds: 8),
@@ -115,11 +115,11 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           messageText: Text(
               "You should be Approved to Upgrade Membership before you make payment",
               style: TextStyle(
-                  fontSize: 2.5 * SizeConfig.textMultiplier,
+                  fontSize: 2.5 * SizeConfig.safeBlockVertical,
                   color: Colors.white)),
           icon: Icon(
             Icons.info_outline,
-            size: 4 * SizeConfig.heightMultiplier,
+            size: 4 * SizeConfig.safeBlockVertical,
             color: Colors.blue[300],
           ),
           duration: Duration(seconds: 8),
@@ -131,13 +131,13 @@ class _UpgradePaymentState extends State<UpgradePayment> {
 
   Widget _buildFullName() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(15 * SizeConfig.widthMultiplier, 0,
-          15 * SizeConfig.widthMultiplier, 0),
+      padding: EdgeInsets.fromLTRB(15 * SizeConfig.safeBlockHorizontal, 0,
+          15 * SizeConfig.safeBlockHorizontal, 0),
       child: TextFormField(
         keyboardType: TextInputType.text,
         enabled: false,
         style: TextStyle(
-            fontSize: 2.8 * SizeConfig.textMultiplier,
+            fontSize: 2.8 * SizeConfig.safeBlockVertical,
             color: Colors.blue[700],
             fontWeight: FontWeight.w700),
         controller: _fullnameController,
@@ -145,7 +145,7 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           labelText: 'Full name',
           labelStyle: TextStyle(
             color: Colors.blue[700],
-            fontSize: 2.86 * SizeConfig.textMultiplier,
+            fontSize: 2.86 * SizeConfig.safeBlockVertical,
           ),
           filled: true,
           fillColor: Colors.grey[300],
@@ -159,13 +159,13 @@ class _UpgradePaymentState extends State<UpgradePayment> {
 
   Widget _buildMembership() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(15 * SizeConfig.widthMultiplier, 0,
-          15 * SizeConfig.widthMultiplier, 0),
+      padding: EdgeInsets.fromLTRB(15 * SizeConfig.safeBlockHorizontal, 0,
+          15 * SizeConfig.safeBlockHorizontal, 0),
       child: DropdownButton<String>(
         hint: Text(
           'Select Membership',
           style: TextStyle(
-              fontSize: 2.8 * SizeConfig.textMultiplier,
+              fontSize: 2.8 * SizeConfig.safeBlockVertical,
               color: Colors.blue[700],
               fontWeight: FontWeight.w700),
         ),
@@ -203,13 +203,13 @@ class _UpgradePaymentState extends State<UpgradePayment> {
 
   Widget _buildAmount() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(15 * SizeConfig.widthMultiplier, 0,
-          15 * SizeConfig.widthMultiplier, 0),
+      padding: EdgeInsets.fromLTRB(15 * SizeConfig.safeBlockHorizontal, 0,
+          15 * SizeConfig.safeBlockHorizontal, 0),
       child: TextFormField(
         keyboardType: TextInputType.text,
         enabled: false,
         style: TextStyle(
-            fontSize: 2.8 * SizeConfig.textMultiplier,
+            fontSize: 2.8 * SizeConfig.safeBlockVertical,
             color: Colors.blue[700],
             fontWeight: FontWeight.w700),
         controller: _amountController,
@@ -217,7 +217,7 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           labelText: 'Total',
           labelStyle: TextStyle(
             color: Colors.blue[700],
-            fontSize: 2.86 * SizeConfig.textMultiplier,
+            fontSize: 2.86 * SizeConfig.safeBlockVertical,
           ),
           filled: true,
           fillColor: Colors.grey[300],
@@ -228,13 +228,13 @@ class _UpgradePaymentState extends State<UpgradePayment> {
 
   Widget _buildEmail() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(15 * SizeConfig.widthMultiplier, 0,
-          15 * SizeConfig.widthMultiplier, 0),
+      padding: EdgeInsets.fromLTRB(15 * SizeConfig.safeBlockHorizontal, 0,
+          15 * SizeConfig.safeBlockHorizontal, 0),
       child: TextFormField(
         keyboardType: TextInputType.text,
         enabled: false,
         style: TextStyle(
-            fontSize: 2.8 * SizeConfig.textMultiplier,
+            fontSize: 2.8 * SizeConfig.safeBlockVertical,
             color: Colors.blue[700],
             fontWeight: FontWeight.w700),
         controller: _emailnameController,
@@ -242,7 +242,7 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           labelText: 'Email',
           labelStyle: TextStyle(
             color: Colors.blue[700],
-            fontSize: 2.86 * SizeConfig.textMultiplier,
+            fontSize: 2.86 * SizeConfig.safeBlockVertical,
           ),
           filled: true,
           fillColor: Colors.grey[300],
@@ -253,13 +253,13 @@ class _UpgradePaymentState extends State<UpgradePayment> {
 
   Widget _buildPhoneNumber() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(15 * SizeConfig.widthMultiplier, 0,
-          15 * SizeConfig.widthMultiplier, 0),
+      padding: EdgeInsets.fromLTRB(15 * SizeConfig.safeBlockHorizontal, 0,
+          15 * SizeConfig.safeBlockHorizontal, 0),
       child: TextFormField(
         keyboardType: TextInputType.text,
         enabled: false,
         style: TextStyle(
-            fontSize: 2.8 * SizeConfig.textMultiplier,
+            fontSize: 2.8 * SizeConfig.safeBlockVertical,
             color: Colors.blue[700],
             fontWeight: FontWeight.w700),
         controller: _phonenoController,
@@ -267,7 +267,7 @@ class _UpgradePaymentState extends State<UpgradePayment> {
           labelText: 'Phone Number',
           labelStyle: TextStyle(
             color: Colors.blue[700],
-            fontSize: 2.86 * SizeConfig.textMultiplier,
+            fontSize: 2.86 * SizeConfig.safeBlockVertical,
           ),
           filled: true,
           fillColor: Colors.grey[300],
@@ -278,136 +278,126 @@ class _UpgradePaymentState extends State<UpgradePayment> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        return OrientationBuilder(
-          builder: (BuildContext context, Orientation orientation) {
-            SizeConfig().init(constraints, orientation);
-            return Scaffold(
-              drawer: NavDrawer(),
-              appBar: AppBar(
-                title: Text('Upgrade Membership',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 3.5 * SizeConfig.textMultiplier,
-                      fontFamily: 'Montserrat',
-                      fontWeight: FontWeight.w700,
-                    )),
-                centerTitle: true,
-                backgroundColor: Colors.blue[700],
-                iconTheme: new IconThemeData(color: Colors.white),
+    SizeConfig().init(context);
+    return Scaffold(
+      drawer: NavDrawer(),
+      appBar: AppBar(
+        title: Text('Upgrade Membership',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 3.5 * SizeConfig.safeBlockVertical,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
+            )),
+        centerTitle: true,
+        backgroundColor: Colors.blue[700],
+        iconTheme: new IconThemeData(color: Colors.white),
+      ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(color: Colors.blue[700]),
+          ),
+          SizedBox(height: 5 * SizeConfig.safeBlockVertical),
+          Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: new Border.all(
+                    color: Colors.black,
+                    width: 0.25 * SizeConfig.safeBlockHorizontal,
+                    style: BorderStyle.solid),
+                borderRadius: new BorderRadius.vertical(
+                  top: new Radius.circular(8.5 * SizeConfig.safeBlockVertical),
+                ),
               ),
-              body: Stack(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(color: Colors.blue[700]),
-                  ),
-                  SizedBox(height: 5 * SizeConfig.heightMultiplier),
-                  Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: new Border.all(
-                            color: Colors.black,
-                            width: 0.25 * SizeConfig.widthMultiplier,
-                            style: BorderStyle.solid),
-                        borderRadius: new BorderRadius.vertical(
-                          top: new Radius.circular(
-                              8.5 * SizeConfig.heightMultiplier),
-                        ),
-                      ),
-                      child: Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 4 * SizeConfig.heightMultiplier),
-                            _buildFullName(),
-                            SizedBox(height: 2 * SizeConfig.heightMultiplier),
-                            _buildEmail(),
-                            SizedBox(height: 2 * SizeConfig.heightMultiplier),
-                            _buildPhoneNumber(),
-                            SizedBox(height: 2 * SizeConfig.heightMultiplier),
-                            _buildMembership(),
-                            SizedBox(height: 2 * SizeConfig.heightMultiplier),
-                            _buildAmount(),
-                            SizedBox(height: 2 * SizeConfig.heightMultiplier),
-                            SizedBox(height: 6 * SizeConfig.heightMultiplier),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.fromLTRB(
-                                        5 * SizeConfig.widthMultiplier,
-                                        0,
-                                        5 * SizeConfig.widthMultiplier,
-                                        0),
-                                    child: RaisedButton(
-                                      onPressed: () {
-                                        var tokenGenerate = Uuid();
-                                        var refCode = tokenGenerate.v4();
-                                        var data = RemitaData(
-                                            firstname: _firstname,
-                                            lastname: _lastname,
-                                            email: _email,
-                                            phonenumber: _phoneno,
-                                            refCode: refCode,
-                                            total: _total);
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 4 * SizeConfig.safeBlockVertical),
+                    _buildFullName(),
+                    SizedBox(height: 2 * SizeConfig.safeBlockVertical),
+                    _buildEmail(),
+                    SizedBox(height: 2 * SizeConfig.safeBlockVertical),
+                    _buildPhoneNumber(),
+                    SizedBox(height: 2 * SizeConfig.safeBlockVertical),
+                    _buildMembership(),
+                    SizedBox(height: 2 * SizeConfig.safeBlockVertical),
+                    _buildAmount(),
+                    SizedBox(height: 2 * SizeConfig.safeBlockVertical),
+                    SizedBox(height: 6 * SizeConfig.safeBlockVertical),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(
+                                5 * SizeConfig.safeBlockHorizontal,
+                                0,
+                                5 * SizeConfig.safeBlockHorizontal,
+                                0),
+                            child: RaisedButton(
+                              onPressed: () {
+                                var tokenGenerate = Uuid();
+                                var refCode = tokenGenerate.v4();
+                                var data = RemitaData(
+                                    firstname: _firstname,
+                                    lastname: _lastname,
+                                    email: _email,
+                                    phonenumber: _phoneno,
+                                    refCode: refCode,
+                                    total: _total);
 
-                                        Get.to(RemitaCustomGateway(data: data));
-                                      },
-                                      color: Colors.red,
-                                      child: Text('Make Payment',
-                                          style: TextStyle(
-                                            fontSize: 2.71 *
-                                                SizeConfig.textMultiplier,
-                                            color: Colors.white,
-                                          )),
-                                      padding: EdgeInsets.fromLTRB(
-                                          3 * SizeConfig.widthMultiplier,
-                                          1.86 * SizeConfig.heightMultiplier,
-                                          3 * SizeConfig.widthMultiplier,
-                                          1.86 * SizeConfig.heightMultiplier),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                    width: 0.5 * SizeConfig.widthMultiplier),
-                                Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.fromLTRB(
-                                        5 * SizeConfig.widthMultiplier,
-                                        0,
-                                        5 * SizeConfig.widthMultiplier,
-                                        0),
-                                    child: RaisedButton(
-                                      onPressed: () {
-                                        cancelPage();
-                                      },
-                                      color: Colors.grey[800],
-                                      child: Text("Cancel",
-                                          style: TextStyle(
-                                            fontSize: 2.71 *
-                                                SizeConfig.textMultiplier,
-                                            color: Colors.white,
-                                          )),
-                                      padding: EdgeInsets.fromLTRB(
-                                          3 * SizeConfig.widthMultiplier,
-                                          1.86 * SizeConfig.heightMultiplier,
-                                          3 * SizeConfig.widthMultiplier,
-                                          1.86 * SizeConfig.heightMultiplier),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                Get.to(RemitaCustomGateway(data: data));
+                              },
+                              color: Colors.red,
+                              child: Text('Make Payment',
+                                  style: TextStyle(
+                                    fontSize:
+                                        1.71 * SizeConfig.safeBlockVertical,
+                                    color: Colors.white,
+                                  )),
+                              padding: EdgeInsets.fromLTRB(
+                                  1 * SizeConfig.safeBlockHorizontal,
+                                  1.86 * SizeConfig.safeBlockVertical,
+                                  13 * SizeConfig.safeBlockHorizontal,
+                                  1.86 * SizeConfig.safeBlockVertical),
                             ),
-                          ],
+                          ),
                         ),
-                      )),
-                ],
-              ),
-            );
-          },
-        );
-      },
+                        SizedBox(width: 0.5 * SizeConfig.safeBlockHorizontal),
+                        Expanded(
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(
+                                5 * SizeConfig.safeBlockHorizontal,
+                                0,
+                                5 * SizeConfig.safeBlockHorizontal,
+                                0),
+                            child: RaisedButton(
+                              onPressed: () {
+                                cancelPage();
+                              },
+                              color: Colors.grey[800],
+                              child: Text("Cancel",
+                                  style: TextStyle(
+                                    fontSize:
+                                        1.71 * SizeConfig.safeBlockVertical,
+                                    color: Colors.white,
+                                  )),
+                              padding: EdgeInsets.fromLTRB(
+                                  3 * SizeConfig.safeBlockHorizontal,
+                                  1.86 * SizeConfig.safeBlockVertical,
+                                  3 * SizeConfig.safeBlockHorizontal,
+                                  1.86 * SizeConfig.safeBlockVertical),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )),
+        ],
+      ),
     );
   }
 
@@ -418,11 +408,11 @@ class _UpgradePaymentState extends State<UpgradePayment> {
             messageText: Text(
                 "To Continue using our services. Please make payment today!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
-              size: 4 * SizeConfig.heightMultiplier,
+              size: 4 * SizeConfig.safeBlockVertical,
               color: Colors.blue[300],
             ),
             duration: Duration(seconds: 8),

@@ -117,11 +117,11 @@ class _RemitaCustomGatewayState extends State<RemitaCustomGateway> {
       Flushbar(
           messageText: Text("You Payment was Successful!",
               style: TextStyle(
-                  fontSize: 2.5 * SizeConfig.textMultiplier,
+                  fontSize: 2.5 * SizeConfig.safeBlockVertical,
                   color: Colors.white)),
           icon: Icon(
             Icons.info_outline,
-            size: 4 * SizeConfig.heightMultiplier,
+            size: 4 * SizeConfig.safeBlockVertical,
             color: Colors.blue[300],
           ),
           duration: Duration(seconds: 8),
@@ -136,11 +136,11 @@ class _RemitaCustomGatewayState extends State<RemitaCustomGateway> {
       Flushbar(
           messageText: Text("You Payment was not Successful!",
               style: TextStyle(
-                  fontSize: 2.5 * SizeConfig.textMultiplier,
+                  fontSize: 2.5 * SizeConfig.safeBlockVertical,
                   color: Colors.white)),
           icon: Icon(
             Icons.info_outline,
-            size: 4 * SizeConfig.heightMultiplier,
+            size: 4 * SizeConfig.safeBlockVertical,
             color: Colors.blue[300],
           ),
           duration: Duration(seconds: 8),
@@ -166,11 +166,11 @@ class _RemitaCustomGatewayState extends State<RemitaCustomGateway> {
         Flushbar(
             messageText: Text("There was a problem with Payment!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
-              size: 4 * SizeConfig.heightMultiplier,
+              size: 4 * SizeConfig.safeBlockVertical,
               color: Colors.blue[300],
             ),
             duration: Duration(seconds: 8),

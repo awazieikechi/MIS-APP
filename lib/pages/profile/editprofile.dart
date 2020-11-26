@@ -144,11 +144,11 @@ class _EditProfileState extends State<EditProfile> {
             messageText: Text(
                 "You need to upload your documents in your profile before you make payment",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
-              size: 4 * SizeConfig.heightMultiplier,
+              size: 4 * SizeConfig.safeBlockVertical,
               color: Colors.blue[300],
             ),
             duration: Duration(seconds: 8),
@@ -168,7 +168,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'First name',
       ),
@@ -192,8 +192,8 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
-        ),
+            borderRadius:
+                BorderRadius.circular(2 * SizeConfig.safeBlockVertical)),
         hintText: 'Last name',
       ),
       validator: (String value) {
@@ -216,7 +216,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'email',
       ),
@@ -237,7 +237,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'Home Address',
       ),
@@ -253,6 +253,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _buildGender() {
+    SizeConfig().init(context);
     print(_gendervalue);
     return DropdownButton<String>(
       hint: Text('Select Gender'),
@@ -282,7 +283,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'City',
       ),
@@ -306,7 +307,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'State',
       ),
@@ -330,7 +331,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'Country',
       ),
@@ -387,7 +388,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'Date of Birth',
       ),
@@ -407,7 +408,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'Phone Number',
       ),
@@ -431,7 +432,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'Organisation',
       ),
@@ -455,7 +456,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'Organisation Address',
       ),
@@ -479,7 +480,7 @@ class _EditProfileState extends State<EditProfile> {
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2 * SizeConfig.heightMultiplier),
+          borderRadius: BorderRadius.circular(2 * SizeConfig.safeBlockVertical),
         ),
         hintText: 'Position',
       ),
@@ -504,38 +505,38 @@ class _EditProfileState extends State<EditProfile> {
             key: _formKey,
             child: Column(
               children: [
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildFirstName(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildLastName(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildEmail(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildHomeAdress(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildGender(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildContactNumber(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildDateofBirth(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildCity(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildState(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildCountry(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildOrganisation(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildPosition(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 _buildOrganisationAddress(),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 Container(
                   child: RaisedButton.icon(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                          1.57 * SizeConfig.heightMultiplier),
+                          1.57 * SizeConfig.safeBlockVertical),
                     ),
                     onPressed: () {
                       if (!_formKey.currentState.validate()) {
@@ -551,17 +552,17 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     label: Text('Update',
                         style: TextStyle(
-                          fontSize: 3 * SizeConfig.textMultiplier,
+                          fontSize: 3 * SizeConfig.safeBlockVertical,
                           color: Colors.white,
                         )),
                     padding: EdgeInsets.fromLTRB(
-                        5 * SizeConfig.widthMultiplier,
-                        2.86 * SizeConfig.heightMultiplier,
-                        5 * SizeConfig.widthMultiplier,
-                        2.86 * SizeConfig.heightMultiplier),
+                        5 * SizeConfig.safeBlockHorizontal,
+                        2.86 * SizeConfig.safeBlockVertical,
+                        5 * SizeConfig.safeBlockHorizontal,
+                        2.86 * SizeConfig.safeBlockVertical),
                   ),
                 ),
-                SizedBox(height: 3 * SizeConfig.heightMultiplier),
+                SizedBox(height: 3 * SizeConfig.safeBlockVertical),
               ],
             ),
           ),
@@ -677,7 +678,7 @@ class _EditProfileState extends State<EditProfile> {
   Widget _uploadDocument() {
     return ListView(children: [
       Container(
-        padding: EdgeInsets.all(4.3 * SizeConfig.heightMultiplier),
+        padding: EdgeInsets.all(4.3 * SizeConfig.safeBlockVertical),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -689,15 +690,15 @@ class _EditProfileState extends State<EditProfile> {
               ),
               child: Text('Choose Passport',
                   style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.textMultiplier,
+                    fontSize: 2.65 * SizeConfig.safeBlockVertical,
                   )),
             ),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             showPassport(),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             OutlineButton(
               onPressed: _pickFirstDegreeFromGallery,
@@ -707,15 +708,15 @@ class _EditProfileState extends State<EditProfile> {
               ),
               child: Text('Choose First Degree Certificate',
                   style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.textMultiplier,
+                    fontSize: 2.65 * SizeConfig.safeBlockVertical,
                   )),
             ),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             showFirstDegree(),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             OutlineButton(
               onPressed: _pickYouthServiceFromGallery,
@@ -725,15 +726,15 @@ class _EditProfileState extends State<EditProfile> {
               ),
               child: Text('Choose Youth Service Certificate',
                   style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.textMultiplier,
+                    fontSize: 2.65 * SizeConfig.safeBlockVertical,
                   )),
             ),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             showYouthService(),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             _membershipSubscription == "Associate"
                 ? SizedBox()
@@ -745,41 +746,41 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                     child: Text("Choose Master Degree Certificate ",
                         style: TextStyle(
-                          fontSize: 2.65 * SizeConfig.textMultiplier,
+                          fontSize: 2.65 * SizeConfig.safeBlockVertical,
                         )),
                   ),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             _membershipSubscription == "Associate"
                 ? SizedBox()
                 : showMasterDegree(),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             RaisedButton(
               onPressed: startUpload,
               color: Colors.blue[900],
               child: Text('Upload Documents',
                   style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.textMultiplier,
+                    fontSize: 2.65 * SizeConfig.safeBlockVertical,
                     color: Colors.white,
                   )),
             ),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
             RaisedButton(
               onPressed: cancelUpload,
               color: Colors.red[900],
               child: Text('Cancel',
                   style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.textMultiplier,
+                    fontSize: 2.65 * SizeConfig.safeBlockVertical,
                     color: Colors.white,
                   )),
             ),
             SizedBox(
-              height: 3 * SizeConfig.heightMultiplier,
+              height: 3 * SizeConfig.safeBlockVertical,
             ),
           ],
         ),
@@ -789,6 +790,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -800,17 +802,17 @@ class _EditProfileState extends State<EditProfile> {
                 indicatorSize: TabBarIndicatorSize.label,
                 indicator: BoxDecoration(
                     borderRadius: BorderRadius.circular(
-                        7.2 * SizeConfig.heightMultiplier),
+                        7.2 * SizeConfig.safeBlockVertical),
                     color: Colors.redAccent),
                 tabs: [
                   Tab(
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                              7.2 * SizeConfig.heightMultiplier),
+                              7.2 * SizeConfig.safeBlockVertical),
                           border: Border.all(
                               color: Colors.redAccent,
-                              width: 0.25 * SizeConfig.widthMultiplier)),
+                              width: 0.25 * SizeConfig.safeBlockHorizontal)),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text("EDIT PROFILE"),
@@ -821,10 +823,10 @@ class _EditProfileState extends State<EditProfile> {
                     child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                              7.2 * SizeConfig.heightMultiplier),
+                              7.2 * SizeConfig.safeBlockVertical),
                           border: Border.all(
                               color: Colors.redAccent,
-                              width: 0.25 * SizeConfig.widthMultiplier)),
+                              width: 0.25 * SizeConfig.safeBlockHorizontal)),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text("UPLOAD DOCUMENT"),
@@ -872,7 +874,7 @@ class _EditProfileState extends State<EditProfile> {
         Flushbar(
             messageText: Text("Your Profile has been successfully updated!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
@@ -889,7 +891,7 @@ class _EditProfileState extends State<EditProfile> {
         Flushbar(
             messageText: Text("Profile could not be updated!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
@@ -949,7 +951,7 @@ class _EditProfileState extends State<EditProfile> {
         Flushbar(
             messageText: Text("There is an issue with uploading!!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
@@ -973,7 +975,7 @@ class _EditProfileState extends State<EditProfile> {
         Flushbar(
             messageText: Text("Your Profile has been successfully updated!",
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,
@@ -991,7 +993,7 @@ class _EditProfileState extends State<EditProfile> {
         Flushbar(
             messageText: Text(response.data.toString(),
                 style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.textMultiplier,
+                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
                     color: Colors.white)),
             icon: Icon(
               Icons.info_outline,

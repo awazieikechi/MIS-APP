@@ -43,6 +43,7 @@ class _NavDrawerState extends State<NavDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Drawer(
       child: ListView(
         children: <Widget>[
@@ -65,7 +66,7 @@ class _NavDrawerState extends State<NavDrawer> {
                       accountName: Text(snapshot.data,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 3 * SizeConfig.textMultiplier,
+                            fontSize: 3 * SizeConfig.safeBlockVertical,
                             fontWeight: FontWeight.w700,
                           )),
                       currentAccountPicture: FutureBuilder(
@@ -86,13 +87,13 @@ class _NavDrawerState extends State<NavDrawer> {
                               case ConnectionState.active:
                               case ConnectionState.done:
                                 return CircleAvatar(
-                                    radius: 14 * SizeConfig.heightMultiplier,
+                                    radius: 14 * SizeConfig.safeBlockVertical,
                                     backgroundColor: Colors.black,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
                                           'https://mis.michelleandanthony.net/storage/uploads/${snapshot.data}'),
                                       radius:
-                                          8.57 * SizeConfig.heightMultiplier,
+                                          8.57 * SizeConfig.safeBlockVertical,
                                     ));
                               default:
                                 break;
@@ -117,7 +118,8 @@ class _NavDrawerState extends State<NavDrawer> {
                                 return Text(snapshot.data,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 3 * SizeConfig.textMultiplier,
+                                      fontSize:
+                                          3 * SizeConfig.safeBlockVertical,
                                       fontWeight: FontWeight.w700,
                                     ));
                               default:
@@ -138,7 +140,7 @@ class _NavDrawerState extends State<NavDrawer> {
                       'Could not get Menu',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 2.57 * SizeConfig.textMultiplier,
+                        fontSize: 2.57 * SizeConfig.safeBlockVertical,
                         fontFamily: 'Typographica',
                         fontWeight: FontWeight.w700,
                       ),
@@ -148,12 +150,12 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading:
-                Icon(Icons.input, size: 2.39 * SizeConfig.heightMultiplier),
+                Icon(Icons.input, size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'Home',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {
               Navigator.push(
@@ -164,12 +166,12 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading: Icon(Icons.verified_user,
-                size: 2.39 * SizeConfig.heightMultiplier),
+                size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'Profile',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {
               Navigator.push(
@@ -180,12 +182,12 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading: Icon(Icons.new_releases_sharp,
-                size: 2.39 * SizeConfig.heightMultiplier),
+                size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'News',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {
               Navigator.push(
@@ -196,12 +198,12 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading:
-                Icon(Icons.payment, size: 2.39 * SizeConfig.heightMultiplier),
+                Icon(Icons.payment, size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'Transactions',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {
               Navigator.push(
@@ -213,12 +215,12 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading: Icon(Icons.book_online,
-                size: 2.39 * SizeConfig.heightMultiplier),
+                size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'Books',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {
               Navigator.push(
@@ -229,12 +231,12 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading:
-                Icon(Icons.settings, size: 2.39 * SizeConfig.heightMultiplier),
+                Icon(Icons.settings, size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'Change Password',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {
               Navigator.push(
@@ -245,23 +247,23 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading: Icon(Icons.contact_mail_rounded,
-                size: 2.39 * SizeConfig.heightMultiplier),
+                size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'Contact Us',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {_launchURL()},
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app,
-                size: 2.39 * SizeConfig.heightMultiplier),
+                size: 2.39 * SizeConfig.safeBlockVertical),
             title: Text(
               'Logout',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 2.39 * SizeConfig.textMultiplier),
+                  fontSize: 2.39 * SizeConfig.safeBlockVertical),
             ),
             onTap: () => {logout()},
           ),

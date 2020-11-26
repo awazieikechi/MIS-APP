@@ -50,6 +50,7 @@ class _OnlineBooksState extends State<OnlineBooks> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -59,7 +60,7 @@ class _OnlineBooksState extends State<OnlineBooks> {
               'BOOKS',
               style: TextStyle(
                 color: Colors.blue[900],
-                fontSize: 4 * SizeConfig.textMultiplier,
+                fontSize: 4 * SizeConfig.safeBlockVertical,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w700,
               ),
@@ -68,7 +69,7 @@ class _OnlineBooksState extends State<OnlineBooks> {
               'Check out our Books',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 2.29 * SizeConfig.textMultiplier,
+                fontSize: 2.29 * SizeConfig.safeBlockVertical,
                 fontFamily: 'Montserrat',
                 fontWeight: FontWeight.w700,
               ),
@@ -121,10 +122,10 @@ class _OnlineBooksState extends State<OnlineBooks> {
                               children: [
                                 /*  */
                                 Container(
-                                    width: 25 * SizeConfig.widthMultiplier,
+                                    width: 25 * SizeConfig.safeBlockHorizontal,
                                     padding: new EdgeInsets.only(
                                         left:
-                                            1.3 * SizeConfig.heightMultiplier),
+                                            1.3 * SizeConfig.safeBlockVertical),
                                     color: Colors.white,
                                     child: Column(
                                       children: [
@@ -136,7 +137,7 @@ class _OnlineBooksState extends State<OnlineBooks> {
                                                 .data[index].images[0].src),
                                         SizedBox(
                                           height: 2.14 *
-                                              SizeConfig.heightMultiplier,
+                                              SizeConfig.safeBlockVertical,
                                         ),
                                       ],
                                     )),
@@ -153,7 +154,7 @@ class _OnlineBooksState extends State<OnlineBooks> {
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 3.43 *
-                                                  SizeConfig.textMultiplier,
+                                                  SizeConfig.safeBlockVertical,
                                               fontFamily: 'Bebas Nue',
                                               fontWeight: FontWeight.w700,
                                             )),
@@ -161,7 +162,8 @@ class _OnlineBooksState extends State<OnlineBooks> {
                                             style: TextStyle(
                                               color: Colors.grey,
                                               fontSize: 2.5 *
-                                                  SizeConfig.textMultiplier,
+                                                  SizeConfig
+                                                      .safeBlockHorizontal,
                                               fontFamily: 'Bebas Nue',
                                               fontWeight: FontWeight.w700,
                                             )),
@@ -172,20 +174,20 @@ class _OnlineBooksState extends State<OnlineBooks> {
                                             style: TextStyle(
                                               color: Colors.cyan[300],
                                               fontSize: 3.43 *
-                                                  SizeConfig.textMultiplier,
+                                                  SizeConfig.safeBlockVertical,
                                               fontFamily: 'Bebas Nue',
                                               fontWeight: FontWeight.w700,
                                             )),
                                         SizedBox(
                                           height: 2.14 *
-                                              SizeConfig.heightMultiplier,
+                                              SizeConfig.safeBlockVertical,
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
                                 SizedBox(
-                                  height: 2.14 * SizeConfig.heightMultiplier,
+                                  height: 2.14 * SizeConfig.safeBlockVertical,
                                 ),
                               ],
                             ),
@@ -201,7 +203,7 @@ class _OnlineBooksState extends State<OnlineBooks> {
                       'Could not get News',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 2.57 * SizeConfig.textMultiplier,
+                        fontSize: 2.57 * SizeConfig.safeBlockHorizontal,
                         fontFamily: 'Typographica',
                         fontWeight: FontWeight.w700,
                       ),
