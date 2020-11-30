@@ -51,7 +51,7 @@ class _RemitaCustomGatewayState extends State<RemitaCustomGateway> {
         console.log("${data.total}");
         var paymentEngine = RmPaymentEngine.init({
           key:
-            "TklJQXw0MjAzODg1NHxlZTgzNmNjNTNiMzUzOGNkYjJmNjRhYWI2NjM0NWQ3NTBjZTI1YTg5NDAwY2E3MjdiNjZjN2ZiZGExOWNhMGY3ZDdiMmY2MTQyYWMxZGM3NGNhMjM3ZmNjZTliZGM3OWI5NjE3NTJmZWY4ZWRiZjg2Y2M3OWQzMWI4NmNkOWJiYw==",
+            "TklJQXw0MjA3MTM3NDkyfDQ3MTJhMTI5YzAxOTk2MDI2MjkyZjM5YTc5YzczOGYzNGM0NGMyMDAzMmM2NzNjODQ3NDljMTZiMGUwNTNlMmRkZmU5OTQ3OTg3MTQzMDFhZGVkNjhlMmY4YTBiNjEyNzY2Y2ZjMDVlOGE0MjBiMDE0MDQyYzQzZDdmYWJlNDQx",
           email: "${data.email}",
           currency: "NGN",
           firstName: "${data.firstname}",

@@ -91,7 +91,7 @@ class User {
         city: json["city"],
         state: json["state"],
         country: json["country"],
-        membershipStatus: json["membership_status"],
+        membershipStatus: json["membership_status"].toString(),
         emailVerifiedAt: json["email_verified_at"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),

@@ -4,6 +4,7 @@ import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:niia_mis_app/pages/profile/editprofile.dart';
 import 'package:niia_mis_app/pages/payments/transactions.dart';
 import 'package:get/get.dart';
+import 'package:niia_mis_app/network_utils/api.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -56,8 +57,8 @@ class _ProfileState extends State<Profile> {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                            image: NetworkImage(
-                                'https://mis.michelleandanthony.net/storage/uploads/${snapshot.data}'),
+                            image: NetworkImage(Network().api_base_url_storage +
+                                '${snapshot.data}'),
                             fit: BoxFit.cover,
                             colorFilter: new ColorFilter.mode(
                                 Colors.blue[800].withOpacity(1.0),
@@ -108,7 +109,8 @@ class _ProfileState extends State<Profile> {
                             backgroundColor: Colors.cyan[300],
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(
-                                  'https://mis.michelleandanthony.net/storage/uploads/${snapshot.data}'),
+                                  Network().api_base_url_storage +
+                                      '${snapshot.data}'),
                               radius: 8.57 * SizeConfig.safeBlockVertical,
                             ));
                       default:
@@ -179,13 +181,16 @@ class _ProfileState extends State<Profile> {
                       case ConnectionState.active:
                       case ConnectionState.done:
                         return Center(
-                          child: Text(
-                            '${snapshot.data}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 5 * SizeConfig.safeBlockVertical,
-                              fontFamily: 'Bebas Nue',
-                              fontWeight: FontWeight.w700,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '${snapshot.data}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 3.2 * SizeConfig.safeBlockVertical,
+                                fontFamily: 'Bebas Nue',
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         );
@@ -323,13 +328,16 @@ class _ProfileState extends State<Profile> {
                       case ConnectionState.active:
                       case ConnectionState.done:
                         return Center(
-                          child: Text(
-                            '${snapshot.data}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 3 * SizeConfig.safeBlockVertical,
-                              fontFamily: 'Bebas Nue',
-                              fontWeight: FontWeight.w400,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              '${snapshot.data}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 3 * SizeConfig.safeBlockVertical,
+                                fontFamily: 'Bebas Nue',
+                                fontWeight: FontWeight.w400,
+                              ),
                             ),
                           ),
                         );

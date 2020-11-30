@@ -3,7 +3,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Network {
-  final String _url = 'https://mis.michelleandanthony.net/api';
+  final String api_base_url = 'https://mis.michelleandanthony.net/api';
+  final String api_base_url_storage =
+      'https:///mis.michelleandanthony.net/storage/uploads/';
 
   var token;
 
@@ -19,7 +21,7 @@ class Network {
       };
 
   authData(data, apiUrl) async {
-    var fullUrl = _url + apiUrl;
+    var fullUrl = api_base_url + apiUrl;
     if (apiUrl == '/profile/update' ||
         apiUrl == '/changepassword' ||
         apiUrl == '/payments' ||
@@ -31,7 +33,7 @@ class Network {
   }
 
   getData(apiUrl) async {
-    var fullUrl = _url + apiUrl;
+    var fullUrl = api_base_url + apiUrl;
     await _getToken();
     return await http.get(fullUrl, headers: _setHeaders());
   }

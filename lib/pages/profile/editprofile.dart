@@ -41,7 +41,6 @@ class _EditProfileState extends State<EditProfile> {
   Dio dio = new Dio();
   Response response;
   FormData formdata;
-  String uploadurl = "https://mis.michelleandanthony.net/api/upload";
 
   // Data Variable For Update Profile
 
@@ -952,7 +951,7 @@ class _EditProfileState extends State<EditProfile> {
 
     try {
       response = await dio.post(
-        uploadurl,
+        Network().api_base_url_storage,
         data: formdata,
         options: Options(
           headers: {

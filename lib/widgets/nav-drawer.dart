@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:niia_mis_app/pages/payments/transactions.dart';
 import 'package:niia_mis_app/pages/profile/myprofile.dart';
 import 'package:niia_mis_app/pages/home.dart';
-
+import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:niia_mis_app/pages/changepassword.dart';
 import 'package:niia_mis_app/pages/news.dart';
 import 'package:niia_mis_app/pages/onlinebooks.dart';
@@ -91,7 +91,8 @@ class _NavDrawerState extends State<NavDrawer> {
                                     backgroundColor: Colors.black,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                          'https://mis.michelleandanthony.net/storage/uploads/${snapshot.data}'),
+                                          Network().api_base_url_storage +
+                                              '${snapshot.data}'),
                                       radius:
                                           8.57 * SizeConfig.safeBlockVertical,
                                     ));

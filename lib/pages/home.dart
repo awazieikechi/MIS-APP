@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:niia_mis_app/pages/onlinebooks.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -115,7 +116,8 @@ class _HomeState extends State<Home> {
                               backgroundColor: Colors.black,
                               child: CircleAvatar(
                                 backgroundImage: NetworkImage(
-                                    'https://mis.michelleandanthony.net/storage/uploads/${snapshot.data}'),
+                                    Network().api_base_url_storage +
+                                        '${snapshot.data}'),
                                 radius: 8.57 * SizeConfig.safeBlockVertical,
                               ));
                         default:
@@ -139,12 +141,19 @@ class _HomeState extends State<Home> {
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
-                      child: Text(
-                        'Welcome!',
-                        style: TextStyle(
-                          color: Colors.cyan[300],
-                          fontSize: 4 * SizeConfig.safeBlockVertical,
-                          fontFamily: 'Typographica',
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            4.43 * SizeConfig.safeBlockHorizontal,
+                            0 * SizeConfig.safeBlockVertical,
+                            0.43 * SizeConfig.safeBlockHorizontal,
+                            0 * SizeConfig.safeBlockVertical),
+                        child: Text(
+                          'Welcome!',
+                          style: TextStyle(
+                            color: Colors.cyan[300],
+                            fontSize: 4 * SizeConfig.safeBlockVertical,
+                            fontFamily: 'Typographica',
+                          ),
                         ),
                       ),
                     );
@@ -158,10 +167,10 @@ class _HomeState extends State<Home> {
                       case ConnectionState.done:
                         return Center(
                           child: Text(
-                            'Welcome! ${snapshot.data}',
+                            'Welcome! ${snapshot.data.trim()}',
                             style: TextStyle(
                               color: Colors.cyan[300],
-                              fontSize: 4 * SizeConfig.safeBlockVertical,
+                              fontSize: 3 * SizeConfig.safeBlockVertical,
                               fontFamily: 'Typographica',
                             ),
                           ),
@@ -175,7 +184,7 @@ class _HomeState extends State<Home> {
                         'Welcome!',
                         style: TextStyle(
                           color: Colors.cyan[300],
-                          fontSize: 4 * SizeConfig.safeBlockVertical,
+                          fontSize: 3 * SizeConfig.safeBlockVertical,
                           fontFamily: 'Typographica',
                         ),
                       ),
@@ -276,19 +285,14 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockHorizontal,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius:
-                                    0.25 * SizeConfig.safeBlockHorizontal)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -330,19 +334,17 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockHorizontal,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.black,
-                                spreadRadius:
-                                    0.25 * SizeConfig.safeBlockVertical)
+                              color: Colors.black,
+                              spreadRadius: 0,
+                            )
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -384,19 +386,14 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockHorizontal,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.42 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius:
-                                    0.25 * SizeConfig.safeBlockHorizontal)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -449,15 +446,11 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockVertical,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius:
-                                    0.25 * SizeConfig.safeBlockVertical)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
@@ -492,19 +485,14 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockVertical,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(
-                                color: Colors.black,
-                                spreadRadius:
-                                    0.25 * SizeConfig.safeBlockVertical)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Profile()),
@@ -538,16 +526,14 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockVertical,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(color: Colors.black, spreadRadius: 1.0)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
                           _launchURL(
                               'mailto:support@niia.gov.ng?subject=Enquiries');
                         },
@@ -590,12 +576,11 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockVertical,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(color: Colors.black, spreadRadius: 1.0)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
@@ -629,16 +614,14 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockVertical,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(color: Colors.black, spreadRadius: 1.0)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => News()),
@@ -674,16 +657,14 @@ class _HomeState extends State<Home> {
                           color: Colors.white,
                           border: new Border.all(
                               color: Colors.black,
-                              width: 0.1 * SizeConfig.safeBlockVertical,
+                              width: 0,
                               style: BorderStyle.solid),
-                          borderRadius: BorderRadius.circular(
-                              1.43 * SizeConfig.safeBlockVertical),
+                          borderRadius: BorderRadius.circular(0),
                           boxShadow: [
-                            BoxShadow(color: Colors.black, spreadRadius: 1.0)
+                            BoxShadow(color: Colors.black, spreadRadius: 0)
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
                           logout();
                         },
                         child: Column(

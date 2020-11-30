@@ -58,13 +58,13 @@ class Payment {
 
   factory Payment.fromJson(Map<String, dynamic> json) => Payment(
         id: json["id"],
-        userId: json["user_id"],
-        amount: json["amount"],
+        userId: json["user_id"].toString(),
+        amount: json["amount"].toString(),
         refCode: json["ref_code"],
         paymentType: json["payment_type"],
         startDate: DateTime.parse(json["start_date"]),
         expiryDate: DateTime.parse(json["expiry_date"]),
-        status: json["status"],
+        status: json["status"].toString(),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );

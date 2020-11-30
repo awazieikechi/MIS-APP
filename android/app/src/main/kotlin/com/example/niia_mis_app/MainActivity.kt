@@ -1,4 +1,4 @@
-package com.example.niia_mis_app
+package ng.gov.niia.niia_mis_app
 
 import io.flutter.embedding.android.FlutterActivity
 
