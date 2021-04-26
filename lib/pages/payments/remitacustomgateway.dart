@@ -1,8 +1,6 @@
-import 'package:niia_mis_app/widgets/size_config.dart';
+import 'package:niia_mis_app/widgets/ShowMessage.dart';
 import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:niia_mis_app/pages/home.dart';
 import 'package:get/get.dart';
@@ -113,41 +111,11 @@ class _RemitaCustomGatewayState extends State<RemitaCustomGateway> {
   }
 
   void sendSuccessResponseMessage() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Flushbar(
-          messageText: Text("You Payment was Successful!",
-              style: TextStyle(
-                  fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                  color: Colors.white)),
-          icon: Icon(
-            Icons.info_outline,
-            size: 4 * SizeConfig.safeBlockVertical,
-            color: Colors.blue[300],
-          ),
-          duration: Duration(seconds: 8),
-          leftBarIndicatorColor: Colors.blue[300],
-          backgroundColor: Colors.black)
-        ..show(context);
-    });
+    ShowMessage().showNotification("Your Payment was Successful!");
   }
 
   void sendErrorResponseMessage() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Flushbar(
-          messageText: Text("You Payment was not Successful!",
-              style: TextStyle(
-                  fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                  color: Colors.white)),
-          icon: Icon(
-            Icons.info_outline,
-            size: 4 * SizeConfig.safeBlockVertical,
-            color: Colors.blue[300],
-          ),
-          duration: Duration(seconds: 8),
-          leftBarIndicatorColor: Colors.blue[300],
-          backgroundColor: Colors.black)
-        ..show(context);
-    });
+    ShowMessage().showNotification("Your Payment was not Successful!");
   }
 
   void processPayment(remitaRefCode, remitaAmount) async {
@@ -162,22 +130,8 @@ class _RemitaCustomGatewayState extends State<RemitaCustomGateway> {
       sendSuccessResponseMessage();
     } else {
       Get.to(Home());
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text("There was a problem with Payment!",
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 4 * SizeConfig.safeBlockVertical,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+
+      ShowMessage().showNotification("There was a problem with Payment!");
     }
   }
 }

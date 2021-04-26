@@ -3,11 +3,11 @@ import 'package:email_validator/email_validator.dart';
 import 'dart:convert';
 import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:niia_mis_app/pages/home.dart';
+import 'package:niia_mis_app/widgets/ShowMessage.dart';
+import 'package:niia_mis_app/widgets/awabuttonbuttoncustomicon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:intl/intl.dart';
-import 'package:flushbar/flushbar.dart';
-import 'package:flutter/scheduler.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -518,13 +518,19 @@ class _RegisterState extends State<Register> {
                   _buildOrganisationAddress(),
                   SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   _buildMembership(),
+                  Text(
+                    'Please check the official website to learn more about the different levels of Membership',
+                    style: TextStyle(
+                      color: Colors.blue[900],
+                      fontSize: 3.7 * SizeConfig.safeBlockHorizontal,
+                      fontFamily: 'Typographica',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                   SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                   Container(
-                    child: RaisedButton.icon(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            1.57 * SizeConfig.safeBlockVertical),
-                      ),
+                    child: AwaButtonCustomIcon(
+                      title: 'Register',
                       onPressed: () async {
                         if (!_formKey.currentState.validate()) {
                           return;
@@ -539,21 +545,12 @@ class _RegisterState extends State<Register> {
                             });
                         await _register();
                       },
-                      color: Colors.blue[900],
                       icon: Icon(
                         Icons.file_download,
                         color: Colors.white,
                       ),
-                      label: Text('Register',
-                          style: TextStyle(
-                            fontSize: 2.65 * SizeConfig.safeBlockHorizontal,
-                            color: Colors.white,
-                          )),
-                      padding: EdgeInsets.fromLTRB(
-                          5 * SizeConfig.safeBlockHorizontal,
-                          2.86 * SizeConfig.safeBlockVertical,
-                          5 * SizeConfig.safeBlockHorizontal,
-                          2.86 * SizeConfig.safeBlockVertical),
+                      color: Colors.blue[900],
+                      textColor: Colors.white,
                     ),
                   ),
                   SizedBox(height: 3 * SizeConfig.safeBlockVertical),
@@ -605,22 +602,7 @@ class _RegisterState extends State<Register> {
         new MaterialPageRoute(builder: (context) => Home()),
       );
     } else {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text(errorResponse.toString(),
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockHorizontal,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 28.0,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+      ShowMessage().showNotification(errorResponse.toString());
     }
 
     setState(() {

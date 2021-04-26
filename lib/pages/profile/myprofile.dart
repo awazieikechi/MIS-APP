@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:niia_mis_app/widgets/awabuttoncustom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:niia_mis_app/pages/profile/editprofile.dart';
@@ -139,26 +140,15 @@ class _ProfileState extends State<Profile> {
                     0 * SizeConfig.safeBlockVertical,
                     8 * SizeConfig.safeBlockHorizontal,
                     11 * SizeConfig.safeBlockVertical),
-                child: RaisedButton(
-                    child: Text('Edit Profile Picture',
-                        style: TextStyle(
-                          fontSize: 3 * SizeConfig.safeBlockVertical,
-                          color: Colors.blue[900],
-                        )),
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                    padding: EdgeInsets.fromLTRB(
-                        0 * SizeConfig.safeBlockHorizontal,
-                        2 * SizeConfig.safeBlockVertical,
-                        0 * SizeConfig.safeBlockHorizontal,
-                        2 * SizeConfig.safeBlockVertical),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EditProfile()));
-                    }),
+                child: AwaButtonCustom(
+                  title: 'Edit Profile Picture',
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => EditProfile()));
+                  },
+                  color: Colors.blue[900],
+                  textColor: Colors.white,
+                ),
               ),
               SizedBox(
                 height: 2 * SizeConfig.safeBlockVertical,
@@ -464,24 +454,13 @@ class _ProfileState extends State<Profile> {
                           0 * SizeConfig.safeBlockVertical,
                           8 * SizeConfig.safeBlockHorizontal,
                           0 * SizeConfig.safeBlockVertical),
-                      child: RaisedButton(
-                        child: Text('Edit Profile',
-                            style: TextStyle(
-                              fontSize: 3 * SizeConfig.safeBlockVertical,
-                              color: Colors.white,
-                            )),
-                        color: Colors.cyan[300],
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0))),
-                        padding: EdgeInsets.fromLTRB(
-                            0 * SizeConfig.safeBlockHorizontal,
-                            2 * SizeConfig.safeBlockVertical,
-                            0 * SizeConfig.safeBlockHorizontal,
-                            2 * SizeConfig.safeBlockVertical),
+                      child: AwaButtonCustom(
+                        title: 'Edit Profile',
                         onPressed: () {
                           Get.to(EditProfile(message: message));
                         },
+                        color: Colors.cyan[300],
+                        textColor: Colors.white,
                       ),
                     ),
                   ),
@@ -494,21 +473,8 @@ class _ProfileState extends State<Profile> {
                           0 * SizeConfig.safeBlockVertical,
                           6 * SizeConfig.safeBlockHorizontal,
                           0 * SizeConfig.safeBlockVertical), //10 for example
-                      child: RaisedButton(
-                        child: Text('Transactions',
-                            style: TextStyle(
-                              fontSize: 3 * SizeConfig.safeBlockVertical,
-                              color: Colors.white,
-                            )),
-                        color: Colors.cyan[300],
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0))),
-                        padding: EdgeInsets.fromLTRB(
-                            2 * SizeConfig.safeBlockHorizontal,
-                            2 * SizeConfig.safeBlockVertical,
-                            0 * SizeConfig.safeBlockHorizontal,
-                            2 * SizeConfig.safeBlockVertical),
+                      child: AwaButtonCustom(
+                        title: 'Transactions',
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -516,6 +482,8 @@ class _ProfileState extends State<Profile> {
                                   builder: (context) =>
                                       UserPaymentTransaction()));
                         },
+                        color: Colors.cyan[300],
+                        textColor: Colors.white,
                       ),
                     ),
                   ),

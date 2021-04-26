@@ -1,9 +1,9 @@
+import 'package:niia_mis_app/widgets/ShowMessage.dart';
+import 'package:niia_mis_app/widgets/awabuttoncustom.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:niia_mis_app/widgets/nav-drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:niia_mis_app/pages/payments/payments.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +24,8 @@ class _UpgradePaymentState extends State<UpgradePayment> {
   final String message = 'true';
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   int _membership;
-  var membership = <String>['Full', 'Corporate', 'Life'];
+  List<String> membership = <String>['Full', 'Corporate', 'Life'];
+  String _selectedMembership;
   var _membershipsubscription;
   var _remainingFullAmount;
   var _remainingCorporateAmount;
@@ -57,30 +58,15 @@ class _UpgradePaymentState extends State<UpgradePayment> {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     var membershipstatus = localStorage.getString('userMembership');
     if (membershipstatus == 'Corporate') {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text(
-                "This is the final Member Type. You cannot Upgrade!",
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 4 * SizeConfig.safeBlockVertical,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+      ShowMessage().showNotification(
+          "This is the final Member Type. You cannot Upgrade!");
     }
   }
 
   getPaymentProcessingDetails() async {
     final res = await Network().getData('/upgrade');
     var result = json.decode(res.body);
-
+    print(result);
     if (result['paymentfailed'] != null) {
       Get.to(UserPayment(message: message));
     } else if (result['profilefailed'] != null) {
@@ -110,23 +96,8 @@ class _UpgradePaymentState extends State<UpgradePayment> {
   }
 
   sendNotificationUser() {
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      Flushbar(
-          messageText: Text(
-              "You should be Approved to Upgrade Membership before you make payment",
-              style: TextStyle(
-                  fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                  color: Colors.white)),
-          icon: Icon(
-            Icons.info_outline,
-            size: 4 * SizeConfig.safeBlockVertical,
-            color: Colors.blue[300],
-          ),
-          duration: Duration(seconds: 8),
-          leftBarIndicatorColor: Colors.blue[300],
-          backgroundColor: Colors.black)
-        ..show(context);
-    });
+    ShowMessage().showNotification(
+        "You should be Approved to Upgrade Membership before you make payment");
   }
 
   Widget _buildFullName() {
@@ -170,17 +141,17 @@ class _UpgradePaymentState extends State<UpgradePayment> {
               fontWeight: FontWeight.w700),
         ),
         isExpanded: true,
-        value: _membership == null ? null : membership[_membership],
-        items: membership.map((String value) {
+        value: _membershipsubscription,
+        items: membership.map((String members) {
           return DropdownMenuItem<String>(
-            value: value,
-            child: new Text(value),
+            value: members,
+            child: new Text(members),
           );
         }).toList(),
         onChanged: (value) {
           setState(() {
-            _membership = membership.indexOf(value);
-            _membershipsubscription = membership[_membership];
+            //_membership = membership.indexOf(value);
+            _membershipsubscription = value;
 
             if (_membershipsubscription == "Full") {
               _amountController = new TextEditingController(
@@ -330,39 +301,29 @@ class _UpgradePaymentState extends State<UpgradePayment> {
                       children: [
                         Expanded(
                           child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                                5 * SizeConfig.safeBlockHorizontal,
-                                0,
-                                5 * SizeConfig.safeBlockHorizontal,
-                                0),
-                            child: RaisedButton(
-                              onPressed: () {
-                                var tokenGenerate = Uuid();
-                                var refCode = tokenGenerate.v4();
-                                var data = RemitaData(
-                                    firstname: _firstname,
-                                    lastname: _lastname,
-                                    email: _email,
-                                    phonenumber: _phoneno,
-                                    refCode: refCode,
-                                    total: _total);
-
-                                Get.to(RemitaCustomGateway(data: data));
-                              },
-                              color: Colors.red,
-                              child: Text('Make Payment',
-                                  style: TextStyle(
-                                    fontSize:
-                                        1.71 * SizeConfig.safeBlockVertical,
-                                    color: Colors.white,
-                                  )),
                               padding: EdgeInsets.fromLTRB(
-                                  1 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical,
-                                  13 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical),
-                            ),
-                          ),
+                                  5 * SizeConfig.safeBlockHorizontal,
+                                  0,
+                                  5 * SizeConfig.safeBlockHorizontal,
+                                  0),
+                              child: AwaButtonCustom(
+                                title: 'Make Payment',
+                                onPressed: () {
+                                  var tokenGenerate = Uuid();
+                                  var refCode = tokenGenerate.v4();
+                                  var data = RemitaData(
+                                      firstname: _firstname.toString(),
+                                      lastname: _lastname,
+                                      email: _email,
+                                      phonenumber: _phoneno,
+                                      refCode: refCode,
+                                      total: _total);
+
+                                  Get.to(RemitaCustomGateway(data: data));
+                                },
+                                color: Colors.red,
+                                textColor: Colors.white,
+                              )),
                         ),
                         SizedBox(width: 0.5 * SizeConfig.safeBlockHorizontal),
                         Expanded(
@@ -372,22 +333,13 @@ class _UpgradePaymentState extends State<UpgradePayment> {
                                 0,
                                 5 * SizeConfig.safeBlockHorizontal,
                                 0),
-                            child: RaisedButton(
+                            child: AwaButtonCustom(
+                              title: 'Cancel',
                               onPressed: () {
                                 cancelPage();
                               },
                               color: Colors.grey[800],
-                              child: Text("Cancel",
-                                  style: TextStyle(
-                                    fontSize:
-                                        1.71 * SizeConfig.safeBlockVertical,
-                                    color: Colors.white,
-                                  )),
-                              padding: EdgeInsets.fromLTRB(
-                                  3 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical,
-                                  3 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical),
+                              textColor: Colors.white,
                             ),
                           ),
                         ),
@@ -403,23 +355,8 @@ class _UpgradePaymentState extends State<UpgradePayment> {
 
   void checkMessage(message) {
     if (message == 'true') {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text(
-                "To Continue using our services. Please make payment today!",
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 4 * SizeConfig.safeBlockVertical,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+      ShowMessage().showNotification(
+          "To Continue using our services. Please make payment today!");
     }
   }
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:niia_mis_app/helpers/hallbookingroute.dart';
 import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:niia_mis_app/pages/onlinebooks.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -454,8 +454,11 @@ class _HomeState extends State<Home> {
                           ]),
                       child: GestureDetector(
                         onTap: () {
-                          print('working');
-                          _launchURL('http://hallbooking.niia.gov.ng/');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HallBookingRoute()),
+                          );
                         },
                         child: Column(
                           children: [

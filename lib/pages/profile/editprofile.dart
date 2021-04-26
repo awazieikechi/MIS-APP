@@ -1,8 +1,11 @@
-import 'package:flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:niia_mis_app/pages/home.dart';
+import 'package:niia_mis_app/widgets/ShowMessage.dart';
+import 'package:niia_mis_app/widgets/awabuttonbuttoncustomicon.dart';
+import 'package:niia_mis_app/widgets/awabuttoncustom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'dart:io';
@@ -14,7 +17,6 @@ import 'dart:convert';
 import 'package:email_validator/email_validator.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 
 class EditProfile extends StatefulWidget {
@@ -39,8 +41,8 @@ class _EditProfileState extends State<EditProfile> {
 
   final picker = ImagePicker();
   Dio dio = new Dio();
-  Response response;
-  FormData formdata;
+  var response;
+  var formdata;
 
   // Data Variable For Update Profile
 
@@ -532,10 +534,11 @@ class _EditProfileState extends State<EditProfile> {
                 _buildOrganisationAddress(),
                 SizedBox(height: 3 * SizeConfig.safeBlockVertical),
                 Container(
-                  child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          1.57 * SizeConfig.safeBlockVertical),
+                  child: AwaButtonCustomIcon(
+                    title: 'Update',
+                    icon: Icon(
+                      Icons.file_download,
+                      color: Colors.white,
                     ),
                     onPressed: () async {
                       if (!_formKey.currentState.validate()) {
@@ -552,20 +555,7 @@ class _EditProfileState extends State<EditProfile> {
                       await _updateuser();
                     },
                     color: Colors.blue[900],
-                    icon: Icon(
-                      Icons.file_download,
-                      color: Colors.white,
-                    ),
-                    label: Text('Update',
-                        style: TextStyle(
-                          fontSize: 3 * SizeConfig.safeBlockVertical,
-                          color: Colors.white,
-                        )),
-                    padding: EdgeInsets.fromLTRB(
-                        5 * SizeConfig.safeBlockHorizontal,
-                        2.86 * SizeConfig.safeBlockVertical,
-                        5 * SizeConfig.safeBlockHorizontal,
-                        2.86 * SizeConfig.safeBlockVertical),
+                    textColor: Colors.white,
                   ),
                 ),
                 SizedBox(height: 3 * SizeConfig.safeBlockVertical),
@@ -688,12 +678,12 @@ class _EditProfileState extends State<EditProfile> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            OutlineButton(
+            OutlinedButton(
               onPressed: _pickImagePassportFromGallery,
-              borderSide: BorderSide(
-                color: Colors.blue[900],
-                width: 2.0,
-              ),
+              style: OutlinedButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.blue[900],
+                  padding: EdgeInsets.all(4 * SizeConfig.safeBlockVertical)),
               child: Text('Choose Passport',
                   style: TextStyle(
                     fontSize: 2.65 * SizeConfig.safeBlockVertical,
@@ -706,12 +696,12 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(
               height: 3 * SizeConfig.safeBlockVertical,
             ),
-            OutlineButton(
+            OutlinedButton(
               onPressed: _pickFirstDegreeFromGallery,
-              borderSide: BorderSide(
-                color: Colors.blue[900],
-                width: 2.0,
-              ),
+              style: OutlinedButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.blue[900],
+                  padding: EdgeInsets.all(4 * SizeConfig.safeBlockVertical)),
               child: Text('Choose First Degree Certificate',
                   style: TextStyle(
                     fontSize: 2.65 * SizeConfig.safeBlockVertical,
@@ -724,12 +714,12 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(
               height: 3 * SizeConfig.safeBlockVertical,
             ),
-            OutlineButton(
+            OutlinedButton(
               onPressed: _pickYouthServiceFromGallery,
-              borderSide: BorderSide(
-                color: Colors.blue[900],
-                width: 2.0,
-              ),
+              style: OutlinedButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Colors.blue[900],
+                  padding: EdgeInsets.all(4 * SizeConfig.safeBlockVertical)),
               child: Text('Choose Youth Service Certificate',
                   style: TextStyle(
                     fontSize: 2.65 * SizeConfig.safeBlockVertical,
@@ -744,12 +734,13 @@ class _EditProfileState extends State<EditProfile> {
             ),
             _membershipSubscription == "Associate"
                 ? SizedBox()
-                : OutlineButton(
+                : OutlinedButton(
                     onPressed: _pickMasterDegreeFromGallery,
-                    borderSide: BorderSide(
-                      color: Colors.blue[900],
-                      width: 2.0,
-                    ),
+                    style: OutlinedButton.styleFrom(
+                        primary: Colors.white,
+                        backgroundColor: Colors.blue[900],
+                        padding:
+                            EdgeInsets.all(4 * SizeConfig.safeBlockVertical)),
                     child: Text("Choose Master Degree Certificate ",
                         style: TextStyle(
                           fontSize: 2.65 * SizeConfig.safeBlockVertical,
@@ -764,7 +755,17 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(
               height: 3 * SizeConfig.safeBlockVertical,
             ),
-            RaisedButton(
+            AwaButtonCustom(
+              title: 'Cancel',
+              onPressed: cancelUpload,
+              color: Colors.red[900],
+              textColor: Colors.white,
+            ),
+            SizedBox(
+              height: 3 * SizeConfig.safeBlockVertical,
+            ),
+            AwaButtonCustom(
+              title: 'Upload Documents',
               onPressed: () async {
                 showDialog(
                     context: context,
@@ -776,23 +777,7 @@ class _EditProfileState extends State<EditProfile> {
                 await startUpload();
               },
               color: Colors.blue[900],
-              child: Text('Upload Documents',
-                  style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.safeBlockVertical,
-                    color: Colors.white,
-                  )),
-            ),
-            SizedBox(
-              height: 3 * SizeConfig.safeBlockVertical,
-            ),
-            RaisedButton(
-              onPressed: cancelUpload,
-              color: Colors.red[900],
-              child: Text('Cancel',
-                  style: TextStyle(
-                    fontSize: 2.65 * SizeConfig.safeBlockVertical,
-                    color: Colors.white,
-                  )),
+              textColor: Colors.white,
             ),
             SizedBox(
               height: 3 * SizeConfig.safeBlockVertical,
@@ -885,44 +870,15 @@ class _EditProfileState extends State<EditProfile> {
     print(body);
 
     if (body['success']?.isNotEmpty == true) {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text("Your Profile has been successfully updated!",
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 28.0,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+      ShowMessage()
+          .showNotification("Your Profile has been successfully updated!");
     } else {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text(body['errors'].toString(),
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 28.0,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+      ShowMessage().showNotification(body['errors'].toString());
     }
   }
 
   startUpload() async {
-    FormData formdata = FormData.fromMap({
+    formdata = FormData.fromMap({
       "passport_image": _imagePassport.path == null
           ? ""
           : await MultipartFile.fromFile(_imagePassport.path,
@@ -962,22 +918,8 @@ class _EditProfileState extends State<EditProfile> {
       //
     } on DioError catch (e) {
       print(e.toString());
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text("There is an issue with uploading!!",
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 28.0,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+
+      ShowMessage().showNotification("There is an issue with uploading!!");
     }
     print(response.statusCode);
     print(response.data.toString().substring(1, 8));
@@ -986,45 +928,26 @@ class _EditProfileState extends State<EditProfile> {
     if (responseProfileMessage == "success") {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('userStatus', '1');
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text("Your Profile has been successfully updated!",
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 28.0,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 12),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
-      Get.to(Home());
+
+      ShowMessage()
+          .showNotification("Your Profile has been successfully updated!");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
     } else {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text(response.data.toString(),
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 28.0,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 12),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
-      Get.to(Home());
+      ShowMessage().showNotification(response.data.toString());
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
     }
   }
 
   void cancelUpload() {
-    Get.to(Home());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Home()),
+    );
   }
 }

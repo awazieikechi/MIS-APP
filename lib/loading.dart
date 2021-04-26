@@ -15,7 +15,7 @@ class Loading {
   final String message = 'true';
 
   getUserStatus() async {
-    Response res = await Network().getData('/home');
+    var res = await Network().getData('/home');
     var result = json.decode(res.body);
 
     print(result);

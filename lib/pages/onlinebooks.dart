@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:niia_mis_app/helpers/booksapproute.dart';
+import 'package:niia_mis_app/widgets/awabuttoncustom.dart';
 import 'package:niia_mis_app/widgets/nav-drawer.dart';
 import 'package:niia_mis_app/network_utils/books.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -211,7 +213,23 @@ class _OnlineBooksState extends State<OnlineBooks> {
               }
             },
           ),
-        )
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: AwaButtonCustom(
+            title: 'Visit our Online Bookshop',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BookAppRoute()),
+              );
+            },
+            color: Colors.blue[900],
+            textColor: Colors.white,
+          ),
+        ),
       ]),
     );
   }

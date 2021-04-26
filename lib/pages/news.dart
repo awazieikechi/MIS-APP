@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:niia_mis_app/widgets/nav-drawer.dart';
 import 'package:niia_mis_app/network_utils/post.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -30,7 +29,7 @@ class _NewsState extends State<News> {
   }
 
   Future _fetchPosts() async {
-    final response = await http.get(this.url);
+    final response = await http.get(Uri.parse(this.url));
 
     if (response.statusCode == 200) {
       posts = (json.decode(response.body) as List).map((data) {

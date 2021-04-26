@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:niia_mis_app/helpers/hallbookingroute.dart';
+import 'package:niia_mis_app/helpers/booksapproute.dart';
 import 'package:niia_mis_app/pages/register.dart';
 import 'package:niia_mis_app/pages/home.dart';
 import 'dart:convert';
 import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:niia_mis_app/widgets/ShowMessage.dart';
+import 'package:niia_mis_app/styles.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
-import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,20 +20,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
+  bool drawerCanOpen = true;
   var _username;
   var _password;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  _showMsg() {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      content: Text('Password and username is wrong',
-          style: TextStyle(fontSize: 2.5 * SizeConfig.safeBlockVertical)),
-      duration: Duration(seconds: 6),
-      backgroundColor: Colors.blue[900],
-    ));
-    // Scafford.of(context).showSnackbar(snackBar);
-  }
 
   Widget _buildUserName() {
     return TextFormField(
@@ -79,11 +73,77 @@ class _LoginState extends State<Login> {
     );
   }
 
+  Widget _buildharmburgerMenu() {
+    return Positioned(
+      top: 7.4 * SizeConfig.safeBlockVertical,
+      left: 5 * SizeConfig.safeBlockVertical,
+      child: GestureDetector(
+        onTap: () {
+          if (drawerCanOpen) {
+            _scaffoldKey.currentState.openDrawer();
+          } else {}
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius:
+                  BorderRadius.circular(6.5 * SizeConfig.safeBlockHorizontal),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 5.0,
+                  spreadRadius: 0.5,
+                  offset: Offset(0.7, 0.7),
+                ),
+              ]),
+          child: CircleAvatar(
+            backgroundColor: Colors.white,
+            radius: 6.5 * SizeConfig.safeBlockHorizontal,
+            child: Icon(
+              (drawerCanOpen) ? Icons.menu : Icons.arrow_back,
+              color: Colors.red,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
         key: _scaffoldKey,
+        drawer: Drawer(
+          child: ListView(children: [
+            ListTile(
+              leading: Icon(OMIcons.hotel, color: Colors.red),
+              title: Text(
+                'Hall booking',
+                style: kDrawerItemStyle,
+              ),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HallBookingRoute()),
+                )
+              },
+            ),
+            ListTile(
+              leading: Icon(OMIcons.book, color: Colors.red),
+              title: Text(
+                'Bookshop',
+                style: kDrawerItemStyle,
+              ),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BookAppRoute()),
+                )
+              },
+            ),
+          ]),
+        ),
         body: SafeArea(
             child: Stack(
           children: [
@@ -157,69 +217,80 @@ class _LoginState extends State<Login> {
                           Row(
                             children: [
                               Expanded(
-                                flex: 2,
-                                child: Container(
-                                  child: RaisedButton.icon(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          2.57 * SizeConfig.safeBlockVertical),
+                                  flex: 2,
+                                  child: Container(
+                                    child: TextButton.icon(
+                                      style: ButtonStyle(
+                                          padding:
+                                              MaterialStateProperty.all<EdgeInsets>(
+                                                  EdgeInsets.all(4 *
+                                                      SizeConfig
+                                                          .safeBlockHorizontal)),
+                                          foregroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.black),
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.black),
+                                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(4.5 * SizeConfig.safeBlockHorizontal),
+                                                  side: BorderSide(color: Colors.black)))),
+                                      onPressed: () async {
+                                        if (!_formKey.currentState.validate()) {
+                                          return;
+                                        }
+                                        _formKey.currentState.save();
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            });
+                                        await _login();
+                                      },
+                                      icon: SvgPicture.asset(
+                                          "assets/images/loginpx.svg"),
+                                      label: Text('Login',
+                                          style: TextStyle(
+                                            fontSize: 2.71 *
+                                                SizeConfig.safeBlockVertical,
+                                            color: Colors.white,
+                                          )),
                                     ),
-                                    onPressed: () async {
-                                      if (!_formKey.currentState.validate()) {
-                                        return;
-                                      }
-                                      _formKey.currentState.save();
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            );
-                                          });
-                                      await _login();
-                                    },
-                                    color: Colors.black,
-                                    icon: SvgPicture.asset(
-                                        "assets/images/loginpx.svg"),
-                                    label: Text('Login',
-                                        style: TextStyle(
-                                          fontSize: 2.71 *
-                                              SizeConfig.safeBlockVertical,
-                                          color: Colors.white,
-                                        )),
-                                    padding: EdgeInsets.fromLTRB(
-                                        5 * SizeConfig.safeBlockHorizontal,
-                                        2.86 * SizeConfig.safeBlockVertical,
-                                        5 * SizeConfig.safeBlockHorizontal,
-                                        2.86 * SizeConfig.safeBlockVertical),
-                                  ),
-                                ),
-                              ),
+                                  )),
                               SizedBox(
                                   width: 2.5 * SizeConfig.safeBlockHorizontal),
                               Expanded(
                                 flex: 1,
                                 child: Container(
                                   //10 for example
-                                  child: RaisedButton.icon(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          2.57 * SizeConfig.safeBlockVertical),
-                                    ),
+                                  child: TextButton.icon(
+                                    style: ButtonStyle(
+                                        padding:
+                                            MaterialStateProperty.all<EdgeInsets>(
+                                                EdgeInsets.all(4 *
+                                                    SizeConfig
+                                                        .safeBlockHorizontal)),
+                                        foregroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.black),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                Colors.black),
+                                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(4.5 * SizeConfig.safeBlockHorizontal),
+                                                side: BorderSide(color: Colors.black)))),
                                     onPressed: () {},
-                                    color: Colors.black,
                                     icon: Icon(
                                       Icons.fingerprint,
                                       color: Colors.white,
                                       size: 4.29 * SizeConfig.safeBlockVertical,
                                     ),
                                     label: Text(""),
-                                    padding: EdgeInsets.fromLTRB(
-                                        5 * SizeConfig.safeBlockHorizontal,
-                                        2.86 * SizeConfig.safeBlockVertical,
-                                        5 * SizeConfig.safeBlockHorizontal,
-                                        2.86 * SizeConfig.safeBlockVertical),
                                   ),
                                 ),
                               ),
@@ -236,18 +307,27 @@ class _LoginState extends State<Login> {
                           1.43 * SizeConfig.safeBlockVertical,
                           3.75 * SizeConfig.safeBlockHorizontal,
                           1.43 * SizeConfig.safeBlockVertical),
-                      child: RaisedButton.icon(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              2.57 * SizeConfig.safeBlockVertical),
-                        ),
+                      child: TextButton.icon(
+                        style: ButtonStyle(
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.all(
+                                    4 * SizeConfig.safeBlockHorizontal)),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.blue),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.blue),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        4.5 * SizeConfig.safeBlockHorizontal),
+                                    side: BorderSide(color: Colors.blue)))),
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Register()),
                           );
                         },
-                        color: Colors.blue[600],
                         icon:
                             SvgPicture.asset("assets/images/contact_mail.svg"),
                         label: Text('Register',
@@ -255,17 +335,13 @@ class _LoginState extends State<Login> {
                               fontSize: 2.71 * SizeConfig.safeBlockVertical,
                               color: Colors.white,
                             )),
-                        padding: EdgeInsets.fromLTRB(
-                            5 * SizeConfig.safeBlockHorizontal,
-                            2.14 * SizeConfig.safeBlockVertical,
-                            5 * SizeConfig.safeBlockHorizontal,
-                            2.14 * SizeConfig.safeBlockVertical),
                       ),
                     ),
                   ),
                 ],
               ),
             ]),
+            _buildharmburgerMenu(),
           ],
         )));
   }
@@ -275,18 +351,21 @@ class _LoginState extends State<Login> {
       'username': _username,
       'password': _password,
     };
-
-    Response res = await Network().authData(data, '/login');
-
+    print(data);
+    var res = await Network().authData(data, '/login');
+    print(res);
     var result = json.decode(res.body);
     print(result);
-    if (result['success']) {
+    if (result['success'] != 'false') {
       SharedPreferences localStorage = await SharedPreferences.getInstance();
       localStorage.setString('token', json.encode(result['token']));
       localStorage.setString('userStatus', '0');
-      Get.to(Home());
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
     } else {
-      _showMsg();
+      ShowMessage().showNotification('Password or username is wrong');
     }
   }
 }

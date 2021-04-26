@@ -1,10 +1,10 @@
+import 'package:niia_mis_app/widgets/awabuttoncustom.dart';
 import 'package:niia_mis_app/widgets/size_config.dart';
 import 'package:niia_mis_app/network_utils/paymentprocessingapi.dart';
 import 'package:niia_mis_app/network_utils/api.dart';
 import 'package:niia_mis_app/widgets/nav-drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flushbar/flushbar.dart';
+import 'package:niia_mis_app/widgets/ShowMessage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:niia_mis_app/pages/home.dart';
@@ -322,7 +322,8 @@ class _UserPaymentState extends State<UserPayment> {
                                 0,
                                 5 * SizeConfig.safeBlockHorizontal,
                                 0),
-                            child: RaisedButton(
+                            child: AwaButtonCustom(
+                              title: 'Make Payment',
                               onPressed: () {
                                 var tokenGenerate = Uuid();
                                 var refCode = tokenGenerate.v4();
@@ -337,17 +338,7 @@ class _UserPaymentState extends State<UserPayment> {
                                 Get.to(RemitaCustomGateway(data: data));
                               },
                               color: Colors.red,
-                              child: Text('Make Payment',
-                                  style: TextStyle(
-                                    fontSize:
-                                        1.71 * SizeConfig.safeBlockVertical,
-                                    color: Colors.white,
-                                  )),
-                              padding: EdgeInsets.fromLTRB(
-                                  1 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical,
-                                  1 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical),
+                              textColor: Colors.white,
                             ),
                           ),
                         ),
@@ -359,22 +350,13 @@ class _UserPaymentState extends State<UserPayment> {
                                 0,
                                 5 * SizeConfig.safeBlockHorizontal,
                                 0),
-                            child: RaisedButton(
+                            child: AwaButtonCustom(
+                              title: 'Cancel',
                               onPressed: () {
                                 cancelPage();
                               },
                               color: Colors.grey[800],
-                              child: Text("Cancel",
-                                  style: TextStyle(
-                                    fontSize:
-                                        1.71 * SizeConfig.safeBlockVertical,
-                                    color: Colors.white,
-                                  )),
-                              padding: EdgeInsets.fromLTRB(
-                                  3 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical,
-                                  3 * SizeConfig.safeBlockHorizontal,
-                                  1.86 * SizeConfig.safeBlockVertical),
+                              textColor: Colors.white,
                             ),
                           ),
                         ),
@@ -390,23 +372,8 @@ class _UserPaymentState extends State<UserPayment> {
 
   void checkMessage(message) {
     if (message == 'true') {
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        Flushbar(
-            messageText: Text(
-                "To Continue using our services. Please make payment today!",
-                style: TextStyle(
-                    fontSize: 2.5 * SizeConfig.safeBlockVertical,
-                    color: Colors.white)),
-            icon: Icon(
-              Icons.info_outline,
-              size: 4 * SizeConfig.safeBlockVertical,
-              color: Colors.blue[300],
-            ),
-            duration: Duration(seconds: 8),
-            leftBarIndicatorColor: Colors.blue[300],
-            backgroundColor: Colors.black)
-          ..show(context);
-      });
+      ShowMessage().showNotification(
+          "To Continue using our services. Please make payment today!");
     }
   }
 
